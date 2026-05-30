@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Basics</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>📚 Python Basics</h1>
+        
+        <div class="section">
+            <h2>Data Types</h2>
+            <p>Python has several built-in data types to work with:</p>
+            <pre>
+# Numbers
+integer = 42
+floating = 3.14
+complex_num = 3 + 4j
+
+# Strings
+string = "Hello, World!"
+multiline = """This is
+a multi-line string"""
+
+# Boolean
+is_valid = True
+is_active = False
+
+# None
+value = None
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Collections</h2>
+            <pre>
+# List - ordered, mutable
+my_list = [1, 2, 3, "hello"]
+my_list.append(4)
+my_list[0]  # Access: 1
+
+# Tuple - ordered, immutable
+my_tuple = (1, 2, 3)
+my_tuple[0]  # Access: 1
+
+# Set - unordered, unique elements
+my_set = {1, 2, 3}
+my_set.add(4)
+
+# Dictionary - key-value pairs
+my_dict = {"name": "John", "age": 30}
+my_dict["name"]  # Access: "John"
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Control Flow</h2>
+            <pre>
+# If-Elif-Else
+age = 25
+if age < 18:
+    print("Minor")
+elif age < 65:
+    print("Adult")
+else:
+    print("Senior")
+
+# For Loop
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+# While Loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# Break and Continue
+for i in range(10):
+    if i == 3:
+        continue  # Skip this iteration
+    if i == 7:
+        break  # Exit the loop
+    print(i)
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Functions</h2>
+            <pre>
+# Basic function
+def greet(name):
+    return f"Hello, {name}!"
+
+result = greet("Alice")
+
+# Function with default parameters
+def add(a, b=5):
+    return a + b
+
+add(10)      # 15
+add(10, 20)  # 30
+
+# *args and **kwargs
+def print_args(*args, **kwargs):
+    print(args)      # Tuple
+    print(kwargs)    # Dictionary
+
+print_args(1, 2, 3, name="John", age=30)
+
+# Lambda (anonymous function)
+square = lambda x: x ** 2
+square(5)  # 25
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>String Operations</h2>
+            <pre>
+s = "Python Programming"
+
+# Methods
+s.lower()           # "python programming"
+s.upper()           # "PYTHON PROGRAMMING"
+s.capitalize()      # "Python programming"
+s.strip()           # Remove whitespace
+
+# Formatting
+name = "Bob"
+age = 30
+f"Name: {name}, Age: {age}"  # f-string
+"Name: {}, Age: {}".format(name, age)
+
+# String slicing
+s[0:6]   # "Python"
+s[:6]    # "Python"
+s[7:]    # "Programming"
+s[::2]   # "Pto rgamn"
+s[::-1]  # Reverse
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>List Comprehension</h2>
+            <pre>
+# Basic list comprehension
+squares = [x**2 for x in range(10)]
+
+# With condition
+evens = [x for x in range(10) if x % 2 == 0]
+
+# Nested comprehension
+matrix = [[x*y for x in range(3)] for y in range(3)]
+
+# Dictionary comprehension
+square_dict = {x: x**2 for x in range(5)}
+
+# Set comprehension
+unique_squares = {x**2 for x in [1, 1, 2, 2, 3, 3]}
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Exception Handling</h2>
+            <pre>
+try:
+    num = int("invalid")
+    result = 10 / 0
+except ValueError:
+    print("Invalid input")
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("Cleanup code")
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Classes & OOP</h2>
+            <pre>
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def greet(self):
+        return f"Hello, I'm {self.name}"
+    
+    def birthday(self):
+        self.age += 1
+
+# Creating objects
+p1 = Person("Alice", 30)
+print(p1.greet())
+p1.birthday()
+            </pre>
+        </div>
+    </div>
+</body>
+</html>

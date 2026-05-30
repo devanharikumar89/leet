@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Data Structures</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .section {
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+        .section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #f4f4f4;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>🏗️ Data Structures</h1>
+        
+        <div class="section">
+            <h2>Array / List</h2>
+            <p><strong>Time Complexity:</strong> Access O(1), Insert/Delete O(n), Search O(n)</p>
+            <pre>
+# Using Python's list
+arr = [1, 2, 3, 4, 5]
+arr.append(6)       # Add to end: O(1)
+arr.insert(0, 0)    # Insert at index: O(n)
+arr.pop()           # Remove from end: O(1)
+arr.pop(0)          # Remove from start: O(n)
+arr[0]              # Access: O(1)
+
+# Array in one dimension
+matrix = [[0]*3 for _ in range(3)]  # 3x3 matrix
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Linked List</h2>
+            <p><strong>Time Complexity:</strong> Access O(n), Insert/Delete O(1) (if at known position), Search O(n)</p>
+            <pre>
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    
+    def append(self, value):
+        if not self.head:
+            self.head = Node(value)
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = Node(value)
+    
+    def traverse(self):
+        current = self.head
+        while current:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+
+# Usage
+ll = LinkedList()
+ll.append(1)
+ll.append(2)
+ll.append(3)
+ll.traverse()  # 1 -> 2 -> 3 -> None
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Stack</h2>
+            <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
+            <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
+            <pre>
+# Using list as stack
+stack = []
+stack.append(1)     # Push: O(1)
+stack.append(2)
+stack.append(3)
+print(stack.pop())  # Pop: 3 (LIFO - Last In First Out)
+
+# Stack implementation
+class Stack:
+    def __init__(self):
+        self.items = []
+    
+    def push(self, item):
+        self.items.append(item)
+    
+    def pop(self):
+        return self.items.pop() if not self.is_empty() else None
+    
+    def peek(self):
+        return self.items[-1] if not self.is_empty() else None
+    
+    def is_empty(self):
+        return len(self.items) == 0
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Queue</h2>
+            <p><strong>Time Complexity:</strong> Enqueue O(1), Dequeue O(1), Peek O(1)</p>
+            <p><strong>Use case:</strong> BFS, Task scheduling</p>
+            <pre>
+from collections import deque
+
+# Using deque
+queue = deque()
+queue.append(1)      # Enqueue: O(1)
+queue.append(2)
+queue.append(3)
+print(queue.popleft())  # Dequeue: 1 (FIFO - First In First Out)
+
+# Queue implementation
+class Queue:
+    def __init__(self):
+        self.items = deque()
+    
+    def enqueue(self, item):
+        self.items.append(item)
+    
+    def dequeue(self):
+        return self.items.popleft() if not self.is_empty() else None
+    
+    def peek(self):
+        return self.items[0] if not self.is_empty() else None
+    
+    def is_empty(self):
+        return len(self.items) == 0
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Hash Table / Dictionary</h2>
+            <p><strong>Time Complexity:</strong> Insert/Delete/Search O(1) average, O(n) worst case</p>
+            <pre>
+# Using Python's dict
+hashmap = {}
+hashmap["key1"] = "value1"  # Insert: O(1)
+print(hashmap["key1"])      # Lookup: O(1)
+del hashmap["key1"]         # Delete: O(1)
+
+# Check key existence
+if "key1" in hashmap:
+    print("Found")
+
+# Dictionary methods
+keys = hashmap.keys()
+values = hashmap.values()
+items = hashmap.items()
+
+# Using defaultdict
+from collections import defaultdict
+dd = defaultdict(list)
+dd["key"].append(1)  # No KeyError
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Heap (Priority Queue)</h2>
+            <p><strong>Time Complexity:</strong> Push O(log n), Pop O(log n), Peek O(1)</p>
+            <p><strong>Use case:</strong> Dijkstra's algorithm, K-largest elements</p>
+            <pre>
+import heapq
+
+# Min Heap (by default)
+heap = []
+heapq.heappush(heap, 5)     # O(log n)
+heapq.heappush(heap, 1)
+heapq.heappush(heap, 3)
+print(heapq.heappop(heap))  # 1 (smallest)
+
+# Convert list to heap
+arr = [5, 3, 1, 4, 2]
+heapq.heapify(arr)  # O(n)
+
+# Max Heap (using negative values)
+max_heap = []
+heapq.heappush(max_heap, -5)
+heapq.heappush(max_heap, -1)
+print(-heapq.heappop(max_heap))  # 5 (largest)
+
+# Get K largest elements
+k_largest = heapq.nlargest(2, arr)  # [5, 4]
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Tree (Binary Tree & BST)</h2>
+            <p><strong>Time Complexity:</strong> Search/Insert/Delete O(log n) (balanced), O(n) (worst)</p>
+            <pre>
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+# Binary Search Tree
+class BST:
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, value):
+        if not self.root:
+            self.root = TreeNode(value)
+        else:
+            self._insert_recursive(self.root, value)
+    
+    def _insert_recursive(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = TreeNode(value)
+            else:
+                self._insert_recursive(node.left, value)
+        else:
+            if node.right is None:
+                node.right = TreeNode(value)
+            else:
+                self._insert_recursive(node.right, value)
+
+# Tree traversals
+def inorder(node):       # Left, Root, Right (sorted)
+    if node:
+        inorder(node.left)
+        print(node.value)
+        inorder(node.right)
+
+def preorder(node):      # Root, Left, Right
+    if node:
+        print(node.value)
+        preorder(node.left)
+        preorder(node.right)
+
+def postorder(node):     # Left, Right, Root
+    if node:
+        postorder(node.left)
+        postorder(node.right)
+        print(node.value)
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h2>Graph</h2>
+            <p><strong>Time Complexity:</strong> Depends on implementation (adjacency list vs matrix)</p>
+            <pre>
+# Adjacency List (most common)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C']
+}
+
+# BFS (Breadth-First Search)
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    
+    while queue:
+        vertex = queue.popleft()
+        print(vertex)
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+
+# DFS (Depth-First Search)
+def dfs(graph, vertex, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(vertex)
+    print(vertex)
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+            </pre>
+        </div>
+    </div>
+</body>
+</html>
