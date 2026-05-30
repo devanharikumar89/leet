@@ -18,10 +18,7 @@ This repository serves as a personal knowledge base for:
 All content is provided in **HTML format** for easy readability and navigation:
 
 - **index.html** - Main hub with links to all sections
-- **python-basics.html** - Data types, control flow, functions, OOP basics
-- **data-structures.html** - Implementation and complexity analysis of common data structures
-- **algorithms.html** - Sorting, searching, graph algorithms, and dynamic programming
-- **design-patterns.html** - Creational, structural, and behavioral design patterns
+- **python-fundamentals.html** - Comprehensive guide covering Python Basics, Data Structures, Algorithms, and Design Patterns
 - **problem-solving.html** - Common coding problems with solutions and explanations
 - **cheatsheet.html** - Quick Python reference guide
 
@@ -47,11 +44,9 @@ cd leet
 
 ## 🎯 Learning Path
 
-1. **Python Basics** - Foundation and syntax
-2. **Data Structures** - Core data structure implementations and complexity
-3. **Algorithms** - Problem-solving techniques and optimization
-4. **Design Patterns** - Architectural best practices
-5. **Problem Solving** - Apply knowledge to real coding challenges
+1. **Python Fundamentals** - Foundation, syntax, data structures, and algorithms
+2. **Design Patterns** - Architectural best practices
+3. **Problem Solving** - Apply knowledge to real coding challenges
 
 ## 💡 Key Features
 

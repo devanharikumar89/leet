@@ -1,0 +1,1122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Fundamentals</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        h2 {
+            color: #667eea;
+            margin: 40px 0 20px 0;
+            font-size: 28px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .section {
+            margin-bottom: 30px;
+            border-left: 4px solid #667eea;
+            padding-left: 20px;
+        }
+        .section h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 22px;
+        }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            color: #d63384;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 30px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover {
+            text-decoration: underline;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+        th, td {
+            border: 1px solid #ddd;
+            padding: 12px;
+            text-align: left;
+        }
+        th {
+            background: #f4f4f4;
+            font-weight: bold;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+        
+        <h1>📚 Python Fundamentals</h1>
+        <p style="text-align: center; color: #666; margin-bottom: 40px;">Python Basics → Data Structures → Algorithms → Design Patterns</p>
+        
+        <!-- PYTHON BASICS SECTION -->
+        <h2>Part 1: Python Basics</h2>
+        
+        <div class="section">
+            <h3>Data Types</h3>
+            <p>Python has several built-in data types to work with:</p>
+            <pre>
+# Numbers
+integer = 42
+floating = 3.14
+complex_num = 3 + 4j
+
+# Strings
+string = "Hello, World!"
+multiline = """This is
+a multi-line string"""
+
+# Boolean
+is_valid = True
+is_active = False
+
+# None
+value = None
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Collections</h3>
+            <pre>
+# List - ordered, mutable
+my_list = [1, 2, 3, "hello"]
+my_list.append(4)
+my_list[0]  # Access: 1
+
+# Tuple - ordered, immutable
+my_tuple = (1, 2, 3)
+my_tuple[0]  # Access: 1
+
+# Set - unordered, unique elements
+my_set = {1, 2, 3}
+my_set.add(4)
+
+# Dictionary - key-value pairs
+my_dict = {"name": "John", "age": 30}
+my_dict["name"]  # Access: "John"
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Control Flow</h3>
+            <pre>
+# If-Elif-Else
+age = 25
+if age < 18:
+    print("Minor")
+elif age < 65:
+    print("Adult")
+else:
+    print("Senior")
+
+# For Loop
+for i in range(5):
+    print(i)  # 0, 1, 2, 3, 4
+
+# While Loop
+count = 0
+while count < 5:
+    print(count)
+    count += 1
+
+# Break and Continue
+for i in range(10):
+    if i == 3:
+        continue  # Skip this iteration
+    if i == 7:
+        break  # Exit the loop
+    print(i)
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Functions</h3>
+            <pre>
+# Basic function
+def greet(name):
+    return f"Hello, {name}!"
+
+result = greet("Alice")
+
+# Function with default parameters
+def add(a, b=5):
+    return a + b
+
+add(10)      # 15
+add(10, 20)  # 30
+
+# *args and **kwargs
+def print_args(*args, **kwargs):
+    print(args)      # Tuple
+    print(kwargs)    # Dictionary
+
+print_args(1, 2, 3, name="John", age=30)
+
+# Lambda (anonymous function)
+square = lambda x: x ** 2
+square(5)  # 25
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>String Operations</h3>
+            <pre>
+s = "Python Programming"
+
+# Methods
+s.lower()           # "python programming"
+s.upper()           # "PYTHON PROGRAMMING"
+s.capitalize()      # "Python programming"
+s.strip()           # Remove whitespace
+
+# Formatting
+name = "Bob"
+age = 30
+f"Name: {name}, Age: {age}"  # f-string
+"Name: {}, Age: {}".format(name, age)
+
+# String slicing
+s[0:6]   # "Python"
+s[:6]    # "Python"
+s[7:]    # "Programming"
+s[::2]   # "Pto rgamn"
+s[::-1]  # Reverse
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>List Comprehension</h3>
+            <pre>
+# Basic list comprehension
+squares = [x**2 for x in range(10)]
+
+# With condition
+evens = [x for x in range(10) if x % 2 == 0]
+
+# Nested comprehension
+matrix = [[x*y for x in range(3)] for y in range(3)]
+
+# Dictionary comprehension
+square_dict = {x: x**2 for x in range(5)}
+
+# Set comprehension
+unique_squares = {x**2 for x in [1, 1, 2, 2, 3, 3]}
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Exception Handling</h3>
+            <pre>
+try:
+    num = int("invalid")
+    result = 10 / 0
+except ValueError:
+    print("Invalid input")
+except ZeroDivisionError:
+    print("Cannot divide by zero")
+except Exception as e:
+    print(f"Unexpected error: {e}")
+finally:
+    print("Cleanup code")
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Classes & OOP</h3>
+            <pre>
+class Person:
+    def __init__(self, name, age):
+        self.name = name
+        self.age = age
+    
+    def greet(self):
+        return f"Hello, I'm {self.name}"
+    
+    def birthday(self):
+        self.age += 1
+
+# Creating objects
+p1 = Person("Alice", 30)
+print(p1.greet())
+p1.birthday()
+            </pre>
+        </div>
+
+        <!-- DATA STRUCTURES SECTION -->
+        <h2>Part 2: Data Structures</h2>
+        
+        <div class="section">
+            <h3>Array / List</h3>
+            <p><strong>Time Complexity:</strong> Access O(1), Insert/Delete O(n), Search O(n)</p>
+            <pre>
+# Using Python's list
+arr = [1, 2, 3, 4, 5]
+arr.append(6)       # Add to end: O(1)
+arr.insert(0, 0)    # Insert at index: O(n)
+arr.pop()           # Remove from end: O(1)
+arr.pop(0)          # Remove from start: O(n)
+arr[0]              # Access: O(1)
+
+# Array in one dimension
+matrix = [[0]*3 for _ in range(3)]  # 3x3 matrix
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Linked List</h3>
+            <p><strong>Time Complexity:</strong> Access O(n), Insert/Delete O(1) (if at known position), Search O(n)</p>
+            <pre>
+class Node:
+    def __init__(self, value):
+        self.value = value
+        self.next = None
+
+class LinkedList:
+    def __init__(self):
+        self.head = None
+    
+    def append(self, value):
+        if not self.head:
+            self.head = Node(value)
+            return
+        current = self.head
+        while current.next:
+            current = current.next
+        current.next = Node(value)
+    
+    def traverse(self):
+        current = self.head
+        while current:
+            print(current.value, end=" -> ")
+            current = current.next
+        print("None")
+
+# Usage
+ll = LinkedList()
+ll.append(1)
+ll.append(2)
+ll.append(3)
+ll.traverse()  # 1 -> 2 -> 3 -> None
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Stack</h3>
+            <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
+            <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
+            <pre>
+# Using list as stack
+stack = []
+stack.append(1)     # Push: O(1)
+stack.append(2)
+stack.append(3)
+print(stack.pop())  # Pop: 3 (LIFO - Last In First Out)
+
+# Stack implementation
+class Stack:
+    def __init__(self):
+        self.items = []
+    
+    def push(self, item):
+        self.items.append(item)
+    
+    def pop(self):
+        return self.items.pop() if not self.is_empty() else None
+    
+    def peek(self):
+        return self.items[-1] if not self.is_empty() else None
+    
+    def is_empty(self):
+        return len(self.items) == 0
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Queue</h3>
+            <p><strong>Time Complexity:</strong> Enqueue O(1), Dequeue O(1), Peek O(1)</p>
+            <p><strong>Use case:</strong> BFS, Task scheduling</p>
+            <pre>
+from collections import deque
+
+# Using deque
+queue = deque()
+queue.append(1)      # Enqueue: O(1)
+queue.append(2)
+queue.append(3)
+print(queue.popleft())  # Dequeue: 1 (FIFO - First In First Out)
+
+# Queue implementation
+class Queue:
+    def __init__(self):
+        self.items = deque()
+    
+    def enqueue(self, item):
+        self.items.append(item)
+    
+    def dequeue(self):
+        return self.items.popleft() if not self.is_empty() else None
+    
+    def peek(self):
+        return self.items[0] if not self.is_empty() else None
+    
+    def is_empty(self):
+        return len(self.items) == 0
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Hash Table / Dictionary</h3>
+            <p><strong>Time Complexity:</strong> Insert/Delete/Search O(1) average, O(n) worst case</p>
+            <pre>
+# Using Python's dict
+hashmap = {}
+hashmap["key1"] = "value1"  # Insert: O(1)
+print(hashmap["key1"])      # Lookup: O(1)
+del hashmap["key1"]         # Delete: O(1)
+
+# Check key existence
+if "key1" in hashmap:
+    print("Found")
+
+# Dictionary methods
+keys = hashmap.keys()
+values = hashmap.values()
+items = hashmap.items()
+
+# Using defaultdict
+from collections import defaultdict
+dd = defaultdict(list)
+dd["key"].append(1)  # No KeyError
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Heap (Priority Queue)</h3>
+            <p><strong>Time Complexity:</strong> Push O(log n), Pop O(log n), Peek O(1)</p>
+            <p><strong>Use case:</strong> Dijkstra's algorithm, K-largest elements</p>
+            <pre>
+import heapq
+
+# Min Heap (by default)
+heap = []
+heapq.heappush(heap, 5)     # O(log n)
+heapq.heappush(heap, 1)
+heapq.heappush(heap, 3)
+print(heapq.heappop(heap))  # 1 (smallest)
+
+# Convert list to heap
+arr = [5, 3, 1, 4, 2]
+heapq.heapify(arr)  # O(n)
+
+# Max Heap (using negative values)
+max_heap = []
+heapq.heappush(max_heap, -5)
+heapq.heappush(max_heap, -1)
+print(-heapq.heappop(max_heap))  # 5 (largest)
+
+# Get K largest elements
+k_largest = heapq.nlargest(2, arr)  # [5, 4]
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Tree (Binary Tree & BST)</h3>
+            <p><strong>Time Complexity:</strong> Search/Insert/Delete O(log n) (balanced), O(n) (worst)</p>
+            <pre>
+class TreeNode:
+    def __init__(self, value):
+        self.value = value
+        self.left = None
+        self.right = None
+
+# Binary Search Tree
+class BST:
+    def __init__(self):
+        self.root = None
+    
+    def insert(self, value):
+        if not self.root:
+            self.root = TreeNode(value)
+        else:
+            self._insert_recursive(self.root, value)
+    
+    def _insert_recursive(self, node, value):
+        if value < node.value:
+            if node.left is None:
+                node.left = TreeNode(value)
+            else:
+                self._insert_recursive(node.left, value)
+        else:
+            if node.right is None:
+                node.right = TreeNode(value)
+            else:
+                self._insert_recursive(node.right, value)
+
+# Tree traversals
+def inorder(node):       # Left, Root, Right (sorted)
+    if node:
+        inorder(node.left)
+        print(node.value)
+        inorder(node.right)
+
+def preorder(node):      # Root, Left, Right
+    if node:
+        print(node.value)
+        preorder(node.left)
+        preorder(node.right)
+
+def postorder(node):     # Left, Right, Root
+    if node:
+        postorder(node.left)
+        postorder(node.right)
+        print(node.value)
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Graph</h3>
+            <p><strong>Time Complexity:</strong> Depends on implementation (adjacency list vs matrix)</p>
+            <pre>
+# Adjacency List (most common)
+graph = {
+    'A': ['B', 'C'],
+    'B': ['A', 'D'],
+    'C': ['A', 'D'],
+    'D': ['B', 'C']
+}
+
+# BFS (Breadth-First Search)
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    
+    while queue:
+        vertex = queue.popleft()
+        print(vertex)
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+
+# DFS (Depth-First Search)
+def dfs(graph, vertex, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(vertex)
+    print(vertex)
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+            </pre>
+        </div>
+
+        <!-- ALGORITHMS SECTION -->
+        <h2>Part 3: Algorithms</h2>
+        
+        <div class="section">
+            <h3>Sorting Algorithms</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Bubble Sort - O(n²)</h4>
+            <pre>
+def bubble_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        for j in range(0, n-i-1):
+            if arr[j] > arr[j+1]:
+                arr[j], arr[j+1] = arr[j+1], arr[j]
+    return arr
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Selection Sort - O(n²)</h4>
+            <pre>
+def selection_sort(arr):
+    n = len(arr)
+    for i in range(n):
+        min_idx = i
+        for j in range(i+1, n):
+            if arr[j] < arr[min_idx]:
+                min_idx = j
+        arr[i], arr[min_idx] = arr[min_idx], arr[i]
+    return arr
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Merge Sort - O(n log n)</h4>
+            <pre>
+def merge_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    mid = len(arr) // 2
+    left = merge_sort(arr[:mid])
+    right = merge_sort(arr[mid:])
+    
+    return merge(left, right)
+
+def merge(left, right):
+    result = []
+    i = j = 0
+    while i < len(left) and j < len(right):
+        if left[i] <= right[j]:
+            result.append(left[i])
+            i += 1
+        else:
+            result.append(right[j])
+            j += 1
+    result.extend(left[i:])
+    result.extend(right[j:])
+    return result
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Quick Sort - O(n log n) average</h4>
+            <pre>
+def quick_sort(arr):
+    if len(arr) <= 1:
+        return arr
+    
+    pivot = arr[len(arr) // 2]
+    left = [x for x in arr if x < pivot]
+    middle = [x for x in arr if x == pivot]
+    right = [x for x in arr if x > pivot]
+    
+    return quick_sort(left) + middle + quick_sort(right)
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Searching Algorithms</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Linear Search - O(n)</h4>
+            <pre>
+def linear_search(arr, target):
+    for i in range(len(arr)):
+        if arr[i] == target:
+            return i
+    return -1
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Binary Search - O(log n)</h4>
+            <pre>
+def binary_search(arr, target):
+    left, right = 0, len(arr) - 1
+    
+    while left <= right:
+        mid = (left + right) // 2
+        if arr[mid] == target:
+            return mid
+        elif arr[mid] < target:
+            left = mid + 1
+        else:
+            right = mid - 1
+    return -1
+
+# Recursive version
+def binary_search_recursive(arr, target, left, right):
+    if left > right:
+        return -1
+    
+    mid = (left + right) // 2
+    if arr[mid] == target:
+        return mid
+    elif arr[mid] < target:
+        return binary_search_recursive(arr, target, mid + 1, right)
+    else:
+        return binary_search_recursive(arr, target, left, mid - 1)
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Graph Algorithms</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">DFS (Depth-First Search)</h4>
+            <pre>
+def dfs(graph, vertex, visited=None):
+    if visited is None:
+        visited = set()
+    visited.add(vertex)
+    print(vertex)
+    
+    for neighbor in graph[vertex]:
+        if neighbor not in visited:
+            dfs(graph, neighbor, visited)
+    
+    return visited
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">BFS (Breadth-First Search)</h4>
+            <pre>
+from collections import deque
+
+def bfs(graph, start):
+    visited = set()
+    queue = deque([start])
+    visited.add(start)
+    
+    while queue:
+        vertex = queue.popleft()
+        print(vertex)
+        
+        for neighbor in graph[vertex]:
+            if neighbor not in visited:
+                queue.append(neighbor)
+                visited.add(neighbor)
+    
+    return visited
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Dijkstra's Algorithm - O((V+E) log V)</h4>
+            <pre>
+import heapq
+
+def dijkstra(graph, start):
+    distances = {node: float('inf') for node in graph}
+    distances[start] = 0
+    pq = [(0, start)]
+    
+    while pq:
+        current_dist, current_node = heapq.heappop(pq)
+        
+        if current_dist > distances[current_node]:
+            continue
+        
+        for neighbor, weight in graph[current_node].items():
+            distance = current_dist + weight
+            
+            if distance < distances[neighbor]:
+                distances[neighbor] = distance
+                heapq.heappush(pq, (distance, neighbor))
+    
+    return distances
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Dynamic Programming</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Fibonacci - O(n)</h4>
+            <pre>
+def fib(n, memo={}):
+    if n in memo:
+        return memo[n]
+    if n <= 1:
+        return n
+    
+    memo[n] = fib(n-1, memo) + fib(n-2, memo)
+    return memo[n]
+
+# Bottom-up DP
+def fib_dp(n):
+    if n <= 1:
+        return n
+    dp = [0] * (n + 1)
+    dp[1] = 1
+    for i in range(2, n + 1):
+        dp[i] = dp[i-1] + dp[i-2]
+    return dp[n]
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Longest Common Subsequence - O(m*n)</h4>
+            <pre>
+def lcs(text1, text2):
+    m, n = len(text1), len(text2)
+    dp = [[0] * (n + 1) for _ in range(m + 1)]
+    
+    for i in range(1, m + 1):
+        for j in range(1, n + 1):
+            if text1[i-1] == text2[j-1]:
+                dp[i][j] = dp[i-1][j-1] + 1
+            else:
+                dp[i][j] = max(dp[i-1][j], dp[i][j-1])
+    
+    return dp[m][n]
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">0/1 Knapsack - O(n*W)</h4>
+            <pre>
+def knapsack(weights, values, capacity):
+    n = len(weights)
+    dp = [[0] * (capacity + 1) for _ in range(n + 1)]
+    
+    for i in range(1, n + 1):
+        for w in range(capacity + 1):
+            if weights[i-1] <= w:
+                dp[i][w] = max(
+                    values[i-1] + dp[i-1][w - weights[i-1]],
+                    dp[i-1][w]
+                )
+            else:
+                dp[i][w] = dp[i-1][w]
+    
+    return dp[n][capacity]
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Other Common Algorithms</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Two Pointers</h4>
+            <pre>
+# Find pair with target sum
+def two_sum(arr, target):
+    left, right = 0, len(arr) - 1
+    while left < right:
+        current_sum = arr[left] + arr[right]
+        if current_sum == target:
+            return [left, right]
+        elif current_sum < target:
+            left += 1
+        else:
+            right -= 1
+    return []
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Sliding Window</h4>
+            <pre>
+# Maximum sum of subarray of size k
+def max_sum_subarray(arr, k):
+    max_sum = sum(arr[:k])
+    current_sum = max_sum
+    
+    for i in range(k, len(arr)):
+        current_sum = current_sum - arr[i-k] + arr[i]
+        max_sum = max(max_sum, current_sum)
+    
+    return max_sum
+            </pre>
+        </div>
+
+        <!-- DESIGN PATTERNS SECTION -->
+        <h2>Part 4: Design Patterns</h2>
+        
+        <div class="section">
+            <h3>Creational Patterns</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Singleton Pattern</h4>
+            <p>Ensures only one instance of a class is created.</p>
+            <pre>
+class Singleton:
+    _instance = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super().__new__(cls)
+        return cls._instance
+
+# Usage
+s1 = Singleton()
+s2 = Singleton()
+print(s1 is s2)  # True
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Factory Pattern</h4>
+            <p>Creates objects without specifying exact classes.</p>
+            <pre>
+class Animal:
+    def speak(self):
+        pass
+
+class Dog(Animal):
+    def speak(self):
+        return "Woof!"
+
+class Cat(Animal):
+    def speak(self):
+        return "Meow!"
+
+class AnimalFactory:
+    @staticmethod
+    def create_animal(animal_type):
+        if animal_type == "dog":
+            return Dog()
+        elif animal_type == "cat":
+            return Cat()
+
+# Usage
+factory = AnimalFactory()
+dog = factory.create_animal("dog")
+print(dog.speak())  # Woof!
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Builder Pattern</h4>
+            <p>Constructs complex objects step by step.</p>
+            <pre>
+class Pizza:
+    def __init__(self):
+        self.dough = None
+        self.sauce = None
+        self.topping = None
+    
+    def __str__(self):
+        return f"Pizza({self.dough}, {self.sauce}, {self.topping})"
+
+class PizzaBuilder:
+    def __init__(self):
+        self.pizza = Pizza()
+    
+    def add_dough(self, dough):
+        self.pizza.dough = dough
+        return self
+    
+    def add_sauce(self, sauce):
+        self.pizza.sauce = sauce
+        return self
+    
+    def add_topping(self, topping):
+        self.pizza.topping = topping
+        return self
+    
+    def build(self):
+        return self.pizza
+
+# Usage
+pizza = (PizzaBuilder()
+         .add_dough("Thin")
+         .add_sauce("Tomato")
+         .add_topping("Pepperoni")
+         .build())
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Structural Patterns</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Adapter Pattern</h4>
+            <p>Converts interface of class into expected interface.</p>
+            <pre>
+class EuropeanPlug:
+    def connect(self):
+        return "European plug connected"
+
+class AmericanSocket:
+    def power_on(self):
+        pass
+
+class PlugAdapter(AmericanSocket):
+    def __init__(self, plug):
+        self.plug = plug
+    
+    def power_on(self):
+        return self.plug.connect()
+
+# Usage
+european_plug = EuropeanPlug()
+adapter = PlugAdapter(european_plug)
+print(adapter.power_on())  # European plug connected
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Decorator Pattern</h4>
+            <p>Attaches additional responsibilities to an object dynamically.</p>
+            <pre>
+class Component:
+    def operation(self):
+        pass
+
+class ConcreteComponent(Component):
+    def operation(self):
+        return "Base operation"
+
+class Decorator(Component):
+    def __init__(self, component):
+        self.component = component
+    
+    def operation(self):
+        return self.component.operation()
+
+class ConcreteDecorator(Decorator):
+    def operation(self):
+        return f"[Decorated: {self.component.operation()}]"
+
+# Usage
+component = ConcreteComponent()
+decorated = ConcreteDecorator(component)
+print(decorated.operation())  # [Decorated: Base operation]
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Facade Pattern</h4>
+            <p>Provides simplified interface to complex subsystem.</p>
+            <pre>
+class Engine:
+    def start(self):
+        return "Engine started"
+
+class Transmission:
+    def shift_gear(self):
+        return "Gear shifted"
+
+class Car:
+    def __init__(self):
+        self.engine = Engine()
+        self.transmission = Transmission()
+    
+    def start_car(self):
+        print(self.engine.start())
+        print(self.transmission.shift_gear())
+        print("Car is ready!")
+
+# Usage
+car = Car()
+car.start_car()  # Hides complexity of Engine and Transmission
+            </pre>
+        </div>
+        
+        <div class="section">
+            <h3>Behavioral Patterns</h3>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Observer Pattern</h4>
+            <p>Defines one-to-many dependency where objects notify changes.</p>
+            <pre>
+class Subject:
+    def __init__(self):
+        self._observers = []
+    
+    def attach(self, observer):
+        self._observers.append(observer)
+    
+    def notify(self, message):
+        for observer in self._observers:
+            observer.update(message)
+
+class Observer:
+    def update(self, message):
+        pass
+
+class ConcreteObserver(Observer):
+    def __init__(self, name):
+        self.name = name
+    
+    def update(self, message):
+        print(f"{self.name} received: {message}")
+
+# Usage
+subject = Subject()
+obs1 = ConcreteObserver("Observer1")
+obs2 = ConcreteObserver("Observer2")
+subject.attach(obs1)
+subject.attach(obs2)
+subject.notify("Hello!")
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Strategy Pattern</h4>
+            <p>Defines family of algorithms and encapsulates them.</p>
+            <pre>
+class Strategy:
+    def execute(self, data):
+        pass
+
+class ConcreteStrategyA(Strategy):
+    def execute(self, data):
+        return sorted(data)
+
+class ConcreteStrategyB(Strategy):
+    def execute(self, data):
+        return sorted(data, reverse=True)
+
+class Context:
+    def __init__(self, strategy):
+        self.strategy = strategy
+    
+    def do_something(self, data):
+        return self.strategy.execute(data)
+
+# Usage
+context = Context(ConcreteStrategyA())
+print(context.do_something([3, 1, 2]))  # [1, 2, 3]
+
+context.strategy = ConcreteStrategyB()
+print(context.do_something([3, 1, 2]))  # [3, 2, 1]
+            </pre>
+            
+            <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Command Pattern</h4>
+            <p>Encapsulates request as an object.</p>
+            <pre>
+class Command:
+    def execute(self):
+        pass
+
+class Light:
+    def turn_on(self):
+        return "Light is on"
+    
+    def turn_off(self):
+        return "Light is off"
+
+class TurnOnCommand(Command):
+    def __init__(self, light):
+        self.light = light
+    
+    def execute(self):
+        return self.light.turn_on()
+
+class TurnOffCommand(Command):
+    def __init__(self, light):
+        self.light = light
+    
+    def execute(self):
+        return self.light.turn_off()
+
+class RemoteControl:
+    def __init__(self):
+        self.command = None
+    
+    def set_command(self, command):
+        self.command = command
+    
+    def press_button(self):
+        return self.command.execute()
+
+# Usage
+light = Light()
+remote = RemoteControl()
+remote.set_command(TurnOnCommand(light))
+print(remote.press_button())  # Light is on
+            </pre>
+        </div>
+    </div>
+</body>
+</html>
