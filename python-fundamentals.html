@@ -477,6 +477,73 @@ d.clear()           # Remove all items
         
         <div class="section">
             <details>
+                <summary>► dict vs defaultdict (and Counter)</summary>
+                <pre>
+# --- Plain dict: missing keys raise KeyError ---
+d = {}
+d["x"]                  # KeyError
+d.get("x")              # None        (no insert)
+d.get("x", 0)           # 0           (no insert)
+d.setdefault("x", []).append(1)  # insert default IF missing, return current
+# d == {"x": [1]}
+
+# Manual "increment" pattern
+counts = {}
+for w in words:
+    counts[w] = counts.get(w, 0) + 1     # verbose but works
+    # or: counts[w] = counts.setdefault(w, 0) + 1
+
+# Manual "group by" pattern
+groups = {}
+for k, v in pairs:
+    groups.setdefault(k, []).append(v)
+
+# --- defaultdict: missing key auto-creates a value via a factory ---
+from collections import defaultdict
+
+counts = defaultdict(int)            # factory = int  -> default 0
+for w in words: counts[w] += 1       # no get/setdefault needed
+
+groups = defaultdict(list)           # factory = list -> default []
+for k, v in pairs: groups[k].append(v)
+
+nested = defaultdict(lambda: defaultdict(int))
+nested["a"]["b"] += 1                # both levels auto-create
+
+# Custom factory
+def_zero_pair = defaultdict(lambda: [0, 0])
+
+# ⚠ Read-access also inserts the default!
+dd = defaultdict(list)
+_ = dd["missing"]                    # dd now has {"missing": []}
+# Use plain dict + .get() if you must NOT mutate on read.
+# Or temporarily switch off auto-creation:
+dd.default_factory = None
+dd["nope"]                           # KeyError again
+
+# Convert back to a plain dict
+dict(dd)
+
+# --- Counter: defaultdict(int) on steroids, purpose-built for tallies ---
+from collections import Counter
+c = Counter("mississippi")           # Counter({'i':4, 's':4, 'p':2, 'm':1})
+c = Counter(words)
+c.most_common(3)                     # top-3 (value, count) pairs
+c["x"]                               # 0 for missing (does NOT insert)
+c.update(more_words)                 # add counts
+c.subtract(other)                    # may go negative
+c + Counter(other);  c & Counter(other)   # multiset add / intersection
+
+# Quick chooser
+#   - Need a default and "missing read is fine"   -> defaultdict
+#   - Need tallies / top-N                        -> Counter
+#   - Need strict missing-key semantics           -> dict + .get / [] / try-except
+                </pre>
+            </details>
+        </div>
+        
+        <div class="section">
+            <details>
                 <summary>► Comprehensions (list / set / dict / generator / tuple / str)</summary>
                 <pre>
 # Body grammar (shared by all forms):
