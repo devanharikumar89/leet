@@ -17,7 +17,8 @@
             color: #333;
         }
         .container {
-            max-width: 1000px;
+            max-width: none;
+            width: 100%;
             margin: 0 auto;
             background: white;
             border-radius: 8px;
@@ -110,6 +111,50 @@
         }
         ul { margin: 6px 0 6px 20px; font-size: 14px; }
         li { margin: 2px 0; }
+        .cards {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 14px;
+            align-items: flex-start;
+        }
+        .section {
+            flex: 0 1 380px;
+            min-width: 0;
+            margin: 0;
+            padding: 0;
+        }
+        .section > details {
+            margin: 0;
+            height: 100%;
+        }
+        .cards .section:has(details[open]) {
+            flex: 0 0 auto;
+            max-width: 100%;
+        }
+        .cards .section:has(details[open]) > details,
+        .cards .section:has(details[open]) pre {
+            width: max-content;
+            max-width: 100%;
+        }
+        .section > details > summary {
+            font-weight: 700;
+            color: #2d3748;
+            font-size: 16px;
+        }
+        .section > details > summary:hover { color: #667eea; }
+        .warn {
+            color: #b45309;
+            background: #fef3c7;
+            padding: 0 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        pre b.hd {
+            display: inline-block;
+            color: #93c5fd;
+            font-weight: 700;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -118,10 +163,10 @@
 
         <h1>🧩 LeetCode Patterns</h1>
         <p class="subtitle">Reusable templates for the most common interview problem patterns.</p>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>1. Two Pointers</h2>
+        <div class="cards">
+        <div class="section">
+            <details>
+                <summary>► 1. Two Pointers</summary>
             <div class="when"><strong>Use when:</strong> a sorted array / linked list, pair-sum, palindrome check, removing duplicates, partitioning.</div>
             <p class="complexity"><strong>Time:</strong> O(n) &nbsp;|&nbsp; <strong>Space:</strong> O(1)</p>
 
@@ -152,11 +197,11 @@ def remove_duplicates(arr):
     return slow + 1
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>2. Sliding Window</h2>
+        <div class="section">
+            <details>
+                <summary>► 2. Sliding Window</summary>
             <div class="when"><strong>Use when:</strong> longest/shortest/contains subarray or substring satisfying a condition.</div>
             <p class="complexity"><strong>Time:</strong> O(n) &nbsp;|&nbsp; <strong>Space:</strong> O(k) for the window state.</p>
 
@@ -192,11 +237,11 @@ def max_sum_window(arr, k):
     return best
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>3. Fast &amp; Slow Pointers (Floyd&apos;s Tortoise &amp; Hare)</h2>
+        <div class="section">
+            <details>
+                <summary>► 3. Fast &amp; Slow Pointers (Floyd&apos;s Tortoise &amp; Hare)</summary>
             <div class="when"><strong>Use when:</strong> cycle detection, finding the middle of a linked list, &quot;happy number&quot;-style state machines.</div>
             <p class="complexity"><strong>Time:</strong> O(n) &nbsp;|&nbsp; <strong>Space:</strong> O(1)</p>
 
@@ -217,11 +262,11 @@ def detect_cycle_start(head):
     return None
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>4. Prefix Sum / Difference Array</h2>
+        <div class="section">
+            <details>
+                <summary>► 4. Prefix Sum / Difference Array</summary>
             <div class="when"><strong>Use when:</strong> repeated range-sum queries, subarray-sum-equals-k, range increments.</div>
             <p class="complexity"><strong>Time:</strong> build O(n), query O(1) &nbsp;|&nbsp; <strong>Space:</strong> O(n)</p>
 
@@ -241,11 +286,11 @@ def subarray_sum_equals_k(nums, k):
     return ans
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>5. Binary Search</h2>
+        <div class="section">
+            <details>
+                <summary>► 5. Binary Search</summary>
             <div class="when"><strong>Use when:</strong> sorted input, or any monotonic predicate <code>f(x) -&gt; bool</code> &mdash; &quot;smallest x that works&quot;.</div>
             <p class="complexity"><strong>Time:</strong> O(log n) over the search space.</p>
 
@@ -280,11 +325,11 @@ i = bisect.bisect_left(arr, target)   # leftmost insertion point
 j = bisect.bisect_right(arr, target)  # rightmost insertion point
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>6. BFS (Breadth-First Search)</h2>
+        <div class="section">
+            <details>
+                <summary>► 6. BFS (Breadth-First Search)</summary>
             <div class="when"><strong>Use when:</strong> shortest path in an unweighted graph/grid, level-order tree traversal, &quot;minimum steps&quot;.</div>
             <p class="complexity"><strong>Time:</strong> O(V + E) &nbsp;|&nbsp; <strong>Space:</strong> O(V)</p>
 
@@ -309,11 +354,11 @@ def bfs(grid, start):
                 q.append(((nr, nc), d + 1))
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>7. DFS / Backtracking</h2>
+        <div class="section">
+            <details>
+                <summary>► 7. DFS / Backtracking</summary>
             <div class="when"><strong>Use when:</strong> all paths/permutations/combinations/subsets, constraint satisfaction (Sudoku, N-queens), tree/graph traversal.</div>
             <p class="complexity"><strong>Time:</strong> often exponential; prune aggressively.</p>
 
@@ -347,11 +392,11 @@ def dfs(node, graph, seen):
         dfs(nb, graph, seen)
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>8. Heap / Top-K</h2>
+        <div class="section">
+            <details>
+                <summary>► 8. Heap / Top-K</summary>
             <div class="when"><strong>Use when:</strong> top-K, K-th smallest/largest, merge K sorted lists, scheduling, Dijkstra.</div>
             <p class="complexity"><strong>Time:</strong> O(n log k) for top-K; O((V+E) log V) for Dijkstra.</p>
 
@@ -386,11 +431,11 @@ def dijkstra(graph, src):
     return dist
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>9. Hash Map / Set (counting, lookups, dedup)</h2>
+        <div class="section">
+            <details>
+                <summary>► 9. Hash Map / Set (counting, lookups, dedup)</summary>
             <div class="when"><strong>Use when:</strong> O(1) lookups by key, frequency counting, anagram grouping, "seen before".</div>
 
             <details>
@@ -418,11 +463,11 @@ def group_anagrams(words):
     return list(groups.values())
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>10. Monotonic Stack / Queue</h2>
+        <div class="section">
+            <details>
+                <summary>► 10. Monotonic Stack / Queue</summary>
             <div class="when"><strong>Use when:</strong> &quot;next greater/smaller element&quot;, largest rectangle in histogram, sliding-window maximum.</div>
             <p class="complexity"><strong>Time:</strong> O(n) amortized.</p>
 
@@ -459,11 +504,11 @@ def sliding_max(nums, k):
     return out
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>11. Dynamic Programming</h2>
+        <div class="section">
+            <details>
+                <summary>► 11. Dynamic Programming</summary>
             <div class="when"><strong>Use when:</strong> optimal substructure + overlapping subproblems &mdash; counting, optimization, decision over sequences/grids.</div>
 
             <details>
@@ -507,11 +552,11 @@ def unique_paths(m, n):
     return dp[m-1][n-1]
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>12. Greedy</h2>
+        <div class="section">
+            <details>
+                <summary>► 12. Greedy</summary>
             <div class="when"><strong>Use when:</strong> a local optimum provably leads to a global optimum &mdash; interval scheduling, jump game, Huffman.</div>
 
             <details>
@@ -527,11 +572,11 @@ def max_non_overlapping(intervals):
     return count
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>13. Union-Find (Disjoint Set Union)</h2>
+        <div class="section">
+            <details>
+                <summary>► 13. Union-Find (Disjoint Set Union)</summary>
             <div class="when"><strong>Use when:</strong> connectivity queries, counting connected components, Kruskal&apos;s MST, cycle detection in an undirected graph.</div>
             <p class="complexity"><strong>Time:</strong> ~O(α(n)) per op (essentially constant).</p>
 
@@ -556,11 +601,11 @@ class DSU:
         return True
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>14. Topological Sort (Kahn&apos;s Algorithm)</h2>
+        <div class="section">
+            <details>
+                <summary>► 14. Topological Sort (Kahn&apos;s Algorithm)</summary>
             <div class="when"><strong>Use when:</strong> course schedule, build order, any DAG ordering with dependencies.</div>
             <p class="complexity"><strong>Time:</strong> O(V + E)</p>
 
@@ -584,11 +629,11 @@ def topo_sort(n, edges):                   # edges: (u -&gt; v)
     return order if len(order) == n else []   # [] -&gt; cycle exists
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>15. Tree Traversals</h2>
+        <div class="section">
+            <details>
+                <summary>► 15. Tree Traversals</summary>
             <div class="when"><strong>Use when:</strong> any binary-tree problem &mdash; recursion is usually cleanest.</div>
 
             <details>
@@ -627,11 +672,11 @@ def level_order(root):
     return out
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>16. Trie (Prefix Tree)</h2>
+        <div class="section">
+            <details>
+                <summary>► 16. Trie (Prefix Tree)</summary>
             <div class="when"><strong>Use when:</strong> prefix queries, autocomplete, word-search-II style problems.</div>
 
             <details>
@@ -659,11 +704,11 @@ class Trie:
         return True
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>17. Bit Manipulation</h2>
+        <div class="section">
+            <details>
+                <summary>► 17. Bit Manipulation</summary>
             <div class="when"><strong>Use when:</strong> subsets via bitmask, single-number XOR tricks, power-of-two checks, DP over subsets.</div>
 
             <details>
@@ -685,11 +730,11 @@ while sub:
 # (the empty subset 0 is handled separately if needed)
                 </pre>
             </details>
+            </details>
         </div>
-
-        <!-- ============================================================== -->
-        <div class="pattern">
-            <h2>Pattern Picker (Quick Heuristics)</h2>
+        <div class="section">
+            <details>
+                <summary>► Pattern Picker (Quick Heuristics)</summary>
             <ul>
                 <li>"Sorted array + pair/triplet" &rarr; <strong>Two Pointers</strong></li>
                 <li>"Longest/shortest contiguous ... with constraint" &rarr; <strong>Sliding Window</strong></li>
@@ -708,6 +753,8 @@ while sub:
                 <li>"Prefix queries / autocomplete" &rarr; <strong>Trie</strong></li>
                 <li>"Subsets up to ~20 elements / XOR puzzles" &rarr; <strong>Bitmask</strong></li>
             </ul>
+            </details>
+        </div>
         </div>
     </div>
 </body>
