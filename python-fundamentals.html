@@ -57,20 +57,24 @@
             font-weight: 500;
         }
         .cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(380px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
             gap: 14px;
-            align-items: start;
+            align-items: flex-start;
+        }
+        .cards .section {
+            flex: 0 1 380px;          /* fixed-ish tile width when collapsed */
+            min-width: 0;
         }
         .cards .section > details {
             margin: 0;
             height: 100%;
         }
-        /* Expanded card: shrink-wrap to its content's natural width
-           (the widest line of code), capped at the page width. */
+        /* Expanded card: shrink-wrap to its content width.
+           Siblings flow around it on the same row when space allows. */
         .cards .section:has(details[open]) {
-            grid-column: 1 / -1;
-            justify-self: start;
+            flex: 0 0 auto;
+            max-width: 100%;
         }
         .cards .section:has(details[open]) > details,
         .cards .section:has(details[open]) pre {
