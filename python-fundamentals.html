@@ -186,6 +186,12 @@
             border-radius: 3px;
             font-weight: 600;
         }
+        pre b.hd {
+            display: inline-block;
+            color: #0b3d91;
+            font-weight: 700;
+            margin-top: 4px;
+        }
     </style>
 </head>
 <body>
@@ -204,7 +210,7 @@
             <details>
                 <summary>► 1. Strings: Methods, Formatting & Literals</summary>
                 <pre>
-# --- Methods ---
+<b class="hd">Methods</b>
 s = "hello world"
 s.upper()           # "HELLO WORLD"
 s.lower()           # "hello world"
@@ -217,7 +223,7 @@ s.endswith("ld")    # True
 s.find("wor")       # 6 (index, -1 if not found)
 s.count("l")        # 3 (occurrences)
 
-# --- Formatting ---
+<b class="hd">Formatting</b>
 name, age = "Bob", 30
 
 # f-strings (preferred)
@@ -234,14 +240,14 @@ f"{name=}"                  # debug: "name='Bob'"   (3.8+)
 # printf-style (legacy)
 "Name: %s, Age: %d" % (name, age)
 
-# --- Literals ---
+<b class="hd">Literals</b>
 multi = """line 1
 line 2"""                   # triple-quoted, may span lines
 raw   = r"C:\path\no\escapes"   # backslashes are literal
 bts   = b"raw bytes"            # bytes literal, not str
 u_esc = "\u00e9 \N{GREEK SMALL LETTER PI}"   # unicode escapes
 
-# --- Join / split round-trip ---
+<b class="hd">Join / split round-trip</b>
 ",".join(["a", "b", "c"])   # "a,b,c"
 "a,b,c".split(",")          # ['a', 'b', 'c']
                 </pre>
@@ -252,12 +258,12 @@ u_esc = "\u00e9 \N{GREEK SMALL LETTER PI}"   # unicode escapes
             <details>
                 <summary>► 2. Creating Lists</summary>
                 <pre>
-# Literals
+<b class="hd">Literals</b>
 a = []                       # empty (preferred over list())
 b = [1, 2, 3, 4]             # homogeneous
 c = [1, "a", True]           # mixed types are allowed
 
-# From an iterable
+<b class="hd">From an iterable</b>
 d = list("abc")              # ['a', 'b', 'c']  (per-character)
 f = list([1, 2, 3])          # shallow copy of a list
 list(range(5))               # [0, 1, 2, 3, 4]   stop is EXCLUSIVE
@@ -271,14 +277,14 @@ list(enumerate(['a', 'b']))  # [(0, 'a'), (1, 'b')]
 import itertools
 list(itertools.chain(a, b))  # flat concat of multiple iterables
 
-# Fill / preallocate
+<b class="hd">Fill / preallocate</b>
 [0] * 5                      # [0, 0, 0, 0, 0]   safe: int is immutable
 [None] * n                   # placeholder slots
 # <span class="warn">⚠</span> `seq * n` repeats REFERENCES, not copies.
 #   Safe only when elements are immutable (int, str, tuple-of-immutables, ...).
 #   Mutable elements (list, dict, set) get aliased -> use a comprehension.
 
-# Build-in-a-loop vs comprehension
+<b class="hd">Build-in-a-loop vs comprehension</b>
 a = []
 for i in range(5):
     a.append(i)              # works, but slower & more verbose
@@ -290,13 +296,13 @@ a.append([7, 8])             # nests:  [..., [7, 8]]
 a.extend([7, 8])             # flattens: [..., 7, 8]   == a += [7, 8]
 a.extend(range(3))           # extend accepts any iterable
 
-# Splitting strings -> list
+<b class="hd">Splitting strings -> list</b>
 "hello".split()              # ['hello']   (no whitespace to split on)
 "a b  c".split()             # ['a', 'b', 'c']   no-arg collapses whitespace
 "a,b,,c".split(",")          # ['a', 'b', '', 'c']   explicit delim keeps empties
 list("hello")                # ['h','e','l','l','o']   per-character, NOT split()
 
-# Comprehensions
+<b class="hd">Comprehensions</b>
 [x * x for x in range(5)]            # transform
 [x for x in nums if x % 2 == 0]      # filter
 
@@ -304,7 +310,7 @@ list("hello")                # ['h','e','l','l','o']   per-character, NOT split(
 [[0] * 5 for _ in range(5)]          # ✅ independent rows
 [[0] * 5] * 5                        # <span class="warn">⚠</span> all rows are the SAME list!
 
-# Other idioms
+<b class="hd">Other idioms</b>
 list(zip([1, 2], ['a', 'b']))        # [(1,'a'), (2,'b')]
 sorted([3, 1, 2])                    # new sorted list (original untouched)
 [*b, *other]                         # merge via unpacking
@@ -371,16 +377,16 @@ a = [0, 1, 2, 3, 4, 5]
 a[::2] = [-1, -2, -3]   # ok
 # a[::2] = [0]          # ValueError
 
-# Delete
+<b class="hd">Delete</b>
 del a[2]                # one item
 del a[1:4]              # a region
 del a[::2]              # every other item
 
-# Reusable slice object
+<b class="hd">Reusable slice object</b>
 s = slice(1, 5, 2)
 a[s]                    # same as a[1:5:2]
 
-# Common patterns
+<b class="hd">Common patterns</b>
 first_n, last_n      = a[:n], a[-n:]
 drop_first, drop_last = a[1:], a[:-1]
 chunks = [a[i:i+k] for i in range(0, len(a), k)]
@@ -411,7 +417,7 @@ empty_set = set()           # {} is an empty DICT, not a set
 s.add(4); s.discard(9)      # discard = no error if missing
 s.remove(2)                 # KeyError if missing
 2 in s                      # O(1) membership
-# Set algebra
+<b class="hd">Set algebra</b>
 {1,2,3} | {3,4}             # union        {1,2,3,4}
 {1,2,3} & {2,3,4}           # intersection {2,3}
 {1,2,3} - {2}               # difference   {1,3}
@@ -483,7 +489,7 @@ from collections import Counter, deque
 Counter(x % 3 for x in nums)
 deque((x for x in iterable), maxlen=100)
 
-# Multiple for / nesting
+<b class="hd">Multiple for / nesting</b>
 [(x, y) for x in range(3) for y in range(3) if x != y]   # cartesian + filter
 [v for row in matrix for v in row]                       # flatten 2D
 [[x*y for x in range(3)] for y in range(3)]              # nested (matrix)
@@ -538,7 +544,7 @@ label = {1: "low", 2: "mid", 3: "high"}.get(level, "unknown")
             <details>
                 <summary>► 9. Functions & Lambda</summary>
                 <pre>
-# Function definition
+<b class="hd">Function definition</b>
 def greet(name):
     return f"Hello, {name}!"
 
@@ -558,7 +564,7 @@ def f(*args, **kwargs):
     pass
 f(1, 2, 3, name="John", age=30)
 
-# Unpacking at the call site
+<b class="hd">Unpacking at the call site</b>
 nums = [1, 2, 3]; opts = {"sep": "-"}
 print(*nums, **opts)              # print(1, 2, 3, sep="-")
 
@@ -570,7 +576,7 @@ def p(a, b, /, c):                # a, b are positional-only
 # Lambda (anonymous function - one expression only)
 square = lambda x: x ** 2
 
-# Map / filter
+<b class="hd">Map / filter</b>
 nums = [1, 2, 3, 4, 5]
 list(map(lambda x: x**2, nums))            # [1, 4, 9, 16, 25]
 list(filter(lambda x: x % 2 == 0, nums))   # [2, 4]
@@ -598,20 +604,20 @@ finally:
             <details>
                 <summary>► 11. File Operations</summary>
                 <pre>
-# Read file
+<b class="hd">Read file</b>
 with open("file.txt", "r") as f:
     content = f.read()      # Read all
     lines = f.readlines()   # Read lines
 
-# Write file
+<b class="hd">Write file</b>
 with open("file.txt", "w") as f:
     f.write("Hello")
 
-# Append to file
+<b class="hd">Append to file</b>
 with open("file.txt", "a") as f:
     f.write("\nNew line")
 
-# Check if file exists
+<b class="hd">Check if file exists</b>
 import os
 os.path.exists("file.txt")
                 </pre>
@@ -664,13 +670,13 @@ b = copy.deepcopy(a)
 b[0].append(99)     # ✅ a is untouched
 b[0] is a[0]        # False
 
-# When to use which
+<b class="hd">When to use which</b>
 # - Flat list of immutables ([1, 2, 3])      -> any shallow copy is enough
 # - Nested mutables, replacing whole slots   -> shallow is fine
 # - Nested mutables, mutating inner objects  -> copy.deepcopy
 # - Objects with cycles / __deepcopy__       -> copy.deepcopy (handles via memo)
 
-# Other containers behave the same way
+<b class="hd">Other containers behave the same way</b>
 d2 = d.copy()                # dict - shallow
 s2 = s.copy()                # set  - shallow
 # tuples are immutable, but a tuple holding a mutable still aliases:
@@ -701,14 +707,14 @@ a += [4, 5]          # mutates the shared list
 # a == [1, 2, 3, 4, 5]
 # c == [1, 2, 3, 4, 5]   <- aliased!
 
-# RHS type
+<b class="hd">RHS type</b>
 [1, 2] + (3, 4)      # TypeError: can only concatenate list (not "tuple")
 lst = [1, 2]
 lst += (3, 4)        # ✅ += accepts ANY iterable (extend semantics)
 lst += "ab"          # ✅ -> [1, 2, 3, 4, 'a', 'b']
 lst += range(2)      # ✅
 
-# Cost
+<b class="hd">Cost</b>
 # a = a + b   -> allocates len(a)+len(b), copies both        O(n + m) memory
 # a += b      -> extends in place, amortized                 O(m)
 
@@ -728,7 +734,7 @@ s += "!"             # equivalent to s = s + "!"   (new string)
             <details>
                 <summary>► 15. dict vs defaultdict (and Counter)</summary>
                 <pre>
-# --- Plain dict: missing keys raise KeyError ---
+<b class="hd">Plain dict: missing keys raise KeyError</b>
 d = {}
 d["x"]                  # KeyError
 d.get("x")              # None        (no insert)
@@ -747,7 +753,7 @@ groups = {}
 for k, v in pairs:
     groups.setdefault(k, []).append(v)
 
-# --- defaultdict: missing key auto-creates a value via a factory ---
+<b class="hd">defaultdict: missing key auto-creates a value via a factory</b>
 from collections import defaultdict
 
 counts = defaultdict(int)            # factory = int  -> default 0
@@ -759,7 +765,7 @@ for k, v in pairs: groups[k].append(v)
 nested = defaultdict(lambda: defaultdict(int))
 nested["a"]["b"] += 1                # both levels auto-create
 
-# Custom factory
+<b class="hd">Custom factory</b>
 def_zero_pair = defaultdict(lambda: [0, 0])
 
 # <span class="warn">⚠</span> Read-access also inserts the default!
@@ -781,10 +787,10 @@ if dd[k] == 0:
     del dd[k]
 # Or use Counter (below): missing reads don't insert, and `+c` drops zeros.
 
-# Convert back to a plain dict
+<b class="hd">Convert back to a plain dict</b>
 dict(dd)
 
-# --- Counter: defaultdict(int) on steroids, purpose-built for tallies ---
+<b class="hd">Counter: defaultdict(int) on steroids, purpose-built for tallies</b>
 from collections import Counter
 c = Counter("mississippi")           # Counter({'i':4, 's':4, 'p':2, 'm':1})
 c = Counter(words)
@@ -796,7 +802,7 @@ c["a"] -= 2                          # zero/negative persist in the dict
 c = +c                               # unary plus drops non-positive entries
 c + Counter(other);  c & Counter(other)   # multiset add / intersection
 
-# Quick chooser
+<b class="hd">Quick chooser</b>
 #   - Need a default and "missing read is fine"   -> defaultdict
 #   - Need tallies / top-N                        -> Counter
 #   - Need strict missing-key semantics           -> dict + .get / [] / try-except
@@ -829,7 +835,7 @@ class Person:
 p = Person("Alice", 30)
 p.greet()                              # "Hello, I'm Alice"
 
-# Inheritance
+<b class="hd">Inheritance</b>
 class Employee(Person):
     def __init__(self, name, age, salary):
         super().__init__(name, age)
@@ -891,16 +897,16 @@ hashmap["key1"] = "value1"  # Insert: O(1)
 print(hashmap["key1"])      # Lookup: O(1)
 del hashmap["key1"]         # Delete: O(1)
 
-# Check key existence
+<b class="hd">Check key existence</b>
 if "key1" in hashmap:
     print("Found")
 
-# Dictionary methods
+<b class="hd">Dictionary methods</b>
 keys = hashmap.keys()
 values = hashmap.values()
 items = hashmap.items()
 
-# Using defaultdict
+<b class="hd">Using defaultdict</b>
 from collections import defaultdict
 dd = defaultdict(list)
 dd["key"].append(1)  # No KeyError
@@ -938,7 +944,7 @@ class LinkedList:
             current = current.next
         print("None")
 
-# Usage
+<b class="hd">Usage</b>
 ll = LinkedList()
 ll.append(1)
 ll.append(2)
@@ -954,14 +960,14 @@ ll.traverse()  # 1 -> 2 -> 3 -> None
                 <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
                 <pre>
-# Using list as stack
+<b class="hd">Using list as stack</b>
 stack = []
 stack.append(1)     # Push: O(1)
 stack.append(2)
 stack.append(3)
 print(stack.pop())  # Pop: 3 (LIFO - Last In First Out)
 
-# Stack implementation
+<b class="hd">Stack implementation</b>
 class Stack:
     def __init__(self):
         self.items = []
@@ -989,14 +995,14 @@ class Stack:
                 <pre>
 from collections import deque
 
-# Using deque
+<b class="hd">Using deque</b>
 queue = deque()
 queue.append(1)      # Enqueue: O(1)
 queue.append(2)
 queue.append(3)
 print(queue.popleft())  # Dequeue: 1 (FIFO - First In First Out)
 
-# Queue implementation
+<b class="hd">Queue implementation</b>
 class Queue:
     def __init__(self):
         self.items = deque()
@@ -1031,7 +1037,7 @@ heapq.heappush(heap, 1)
 heapq.heappush(heap, 3)
 print(heapq.heappop(heap))  # 1 (smallest)
 
-# Convert list to heap
+<b class="hd">Convert list to heap</b>
 arr = [5, 3, 1, 4, 2]
 heapq.heapify(arr)  # O(n)
 
@@ -1041,7 +1047,7 @@ heapq.heappush(max_heap, -5)
 heapq.heappush(max_heap, -1)
 print(-heapq.heappop(max_heap))  # 5 (largest)
 
-# Get K largest elements
+<b class="hd">Get K largest elements</b>
 k_largest = heapq.nlargest(2, arr)  # [5, 4]
                 </pre>
             </details>
@@ -1058,7 +1064,7 @@ class TreeNode:
         self.left = None
         self.right = None
 
-# Binary Search Tree
+<b class="hd">Binary Search Tree</b>
 class BST:
     def __init__(self):
         self.root = None
@@ -1081,7 +1087,7 @@ class BST:
             else:
                 self._insert_recursive(node.right, value)
 
-# Tree traversals
+<b class="hd">Tree traversals</b>
 def inorder(node):       # Left, Root, Right (sorted)
     if node:
         inorder(node.left)
@@ -1173,7 +1179,7 @@ def binary_search(arr, target):
             right = mid - 1
     return -1
 
-# Recursive version
+<b class="hd">Recursive version</b>
 def binary_search_recursive(arr, target, left, right):
     if left > right:
         return -1
@@ -1266,7 +1272,7 @@ def quick_sort(arr):
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Two Pointers</h4>
                 <pre>
-# Find pair with target sum
+<b class="hd">Find pair with target sum</b>
 def two_sum(arr, target):
     left, right = 0, len(arr) - 1
     while left < right:
@@ -1282,7 +1288,7 @@ def two_sum(arr, target):
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Sliding Window</h4>
                 <pre>
-# Maximum sum of subarray of size k
+<b class="hd">Maximum sum of subarray of size k</b>
 def max_sum_subarray(arr, k):
     max_sum = sum(arr[:k])
     current_sum = max_sum
@@ -1378,7 +1384,7 @@ def fib(n, memo={}):
     memo[n] = fib(n-1, memo) + fib(n-2, memo)
     return memo[n]
 
-# Bottom-up DP
+<b class="hd">Bottom-up DP</b>
 def fib_dp(n):
     if n <= 1:
         return n
@@ -1441,7 +1447,7 @@ class Singleton:
             cls._instance = super().__new__(cls)
         return cls._instance
 
-# Usage
+<b class="hd">Usage</b>
 s1 = Singleton()
 s2 = Singleton()
 print(s1 is s2)  # True
@@ -1470,7 +1476,7 @@ class AnimalFactory:
         elif animal_type == "cat":
             return Cat()
 
-# Usage
+<b class="hd">Usage</b>
 factory = AnimalFactory()
 dog = factory.create_animal("dog")
 print(dog.speak())  # Woof!
@@ -1507,7 +1513,7 @@ class PizzaBuilder:
     def build(self):
         return self.pizza
 
-# Usage
+<b class="hd">Usage</b>
 pizza = (PizzaBuilder()
          .add_dough("Thin")
          .add_sauce("Tomato")
@@ -1539,7 +1545,7 @@ class PlugAdapter(AmericanSocket):
     def power_on(self):
         return self.plug.connect()
 
-# Usage
+<b class="hd">Usage</b>
 european_plug = EuropeanPlug()
 adapter = PlugAdapter(european_plug)
 print(adapter.power_on())  # European plug connected
@@ -1567,7 +1573,7 @@ class ConcreteDecorator(Decorator):
     def operation(self):
         return f"[Decorated: {self.component.operation()}]"
 
-# Usage
+<b class="hd">Usage</b>
 component = ConcreteComponent()
 decorated = ConcreteDecorator(component)
 print(decorated.operation())  # [Decorated: Base operation]
@@ -1594,7 +1600,7 @@ class Car:
         print(self.transmission.shift_gear())
         print("Car is ready!")
 
-# Usage
+<b class="hd">Usage</b>
 car = Car()
 car.start_car()  # Hides complexity of Engine and Transmission
                 </pre>
@@ -1630,7 +1636,7 @@ class ConcreteObserver(Observer):
     def update(self, message):
         print(f"{self.name} received: {message}")
 
-# Usage
+<b class="hd">Usage</b>
 subject = Subject()
 obs1 = ConcreteObserver("Observer1")
 obs2 = ConcreteObserver("Observer2")
@@ -1661,7 +1667,7 @@ class Context:
     def do_something(self, data):
         return self.strategy.execute(data)
 
-# Usage
+<b class="hd">Usage</b>
 context = Context(ConcreteStrategyA())
 print(context.do_something([3, 1, 2]))  # [1, 2, 3]
 
@@ -1707,7 +1713,7 @@ class RemoteControl:
     def press_button(self):
         return self.command.execute()
 
-# Usage
+<b class="hd">Usage</b>
 light = Light()
 remote = RemoteControl()
 remote.set_command(TurnOnCommand(light))
