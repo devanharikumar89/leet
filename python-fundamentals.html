@@ -40,8 +40,8 @@
             font-weight: 600;
         }
         .section {
-            margin-bottom: 35px;
-            padding-left: 0;
+            margin-bottom: 0;
+            padding: 0;
         }
         .section h3 {
             color: #555;
@@ -54,6 +54,19 @@
             margin: 20px 0 10px 0;
             font-size: 16px;
             font-weight: 500;
+        }
+        .cards {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+            gap: 14px;
+            align-items: start;
+        }
+        .cards .section > details {
+            margin: 0;
+            height: 100%;
+        }
+        .cards .section:has(details[open]) {
+            grid-column: 1 / -1;
         }
         code {
             background: #f5f5f5;
@@ -166,6 +179,7 @@
         <h2>Quick Reference (Cheatsheet)</h2>
         <p style="color: #666; margin-bottom: 20px;">Click any heading to expand. Earlier blocks cover language idioms; later ones cover data structures, algorithms, and design patterns.</p>
         
+        <div class="cards">
         <div class="section">
             <details>
                 <summary>► String Methods</summary>
@@ -1689,6 +1703,7 @@ remote.set_command(TurnOnCommand(light))
 print(remote.press_button())  # Light is on
                 </pre>
             </details>
+        </div>
         </div>
     </div>
 </body>
