@@ -477,36 +477,53 @@ d.clear()           # Remove all items
         
         <div class="section">
             <details>
-                <summary>► List Comprehension</summary>
+                <summary>► Comprehensions (list / set / dict / generator / tuple / str)</summary>
                 <pre>
-# Basic comprehension
-[x*2 for x in range(5)]           # [0, 2, 4, 6, 8]
+# Body grammar (shared by all forms):
+#   <expr> for <target> in <iterable> [if <cond>] [for ... in ... [if ...]] ...
+# The surrounding delimiter decides what is built.
 
-# With condition
-[x for x in range(10) if x % 2 == 0]  # [0, 2, 4, 6, 8]
+# List comprehension                          -> list
+[x*x for x in range(5)]                       # [0, 1, 4, 9, 16]
+[x for x in range(10) if x % 2 == 0]          # filter
 
-# Nested comprehension
-[[x*y for x in range(3)] for y in range(3)]
+# Set comprehension                           -> set (dedups, unordered)
+{x % 3 for x in range(10)}                    # {0, 1, 2}
 
-# Dictionary comprehension
-{x: x**2 for x in range(5)}       # {0: 0, 1: 1, 2: 4, 3: 9, 4: 16}
+# Dict comprehension                          -> dict
+{x: x*x for x in range(5)}                    # {0:0, 1:1, 2:4, 3:9, 4:16}
+{v: k for k, v in d.items()}                  # invert a dict
+{k: v for k, v in items.items() if v is not None}  # filter dict
 
-# Set comprehension
-{x for x in range(5)}             # {0, 1, 2, 3, 4}
+# Generator expression                        -> lazy generator (O(1) memory)
+(x*x for x in range(5))                       # <generator object>
+sum(x*x for x in range(10))                   # call's parens double as gen's parens
+any(x > 0 for x in nums)                      # short-circuits
 
-# Generator expression - lazy, single-pass, no list built in memory
-(x*x for x in range(5))           # <generator object>
-sum(x*x for x in range(10))       # parens of the call double as the gen's parens
-list(x for x in range(5))         # materialize a gen into a list
+# Tuple - NO tuple comprehension; wrap a generator
+tuple(x*x for x in range(5))                  # (0, 1, 4, 9, 16)
 
-# The bare form  `x for x in range(5)`  is a generator-expression body.
-# It needs delimiters to become an object:
-#   [ ... ]  -> list comprehension
-#   { ... }  -> set / dict comprehension
-#   ( ... )  -> generator expression
-# A `for` clause and optional `if` clauses are the comprehension clauses;
-# you can have multiple:
-#   [(x, y) for x in range(3) for y in range(3) if x != y]
+# String - NO string comprehension; use ''.join(gen)
+''.join(c.upper() for c in "abc")             # "ABC"
+','.join(str(x) for x in nums)                # "1,2,3"
+
+# Other constructors that accept a generator
+frozenset(x for x in iterable)
+bytes(b & 0xFF for b in ints)
+bytearray(b for b in ints)
+from collections import Counter, deque
+Counter(x % 3 for x in nums)
+deque((x for x in iterable), maxlen=100)
+
+# Multiple for / nesting
+[(x, y) for x in range(3) for y in range(3) if x != y]   # cartesian + filter
+[v for row in matrix for v in row]                       # flatten 2D
+[[x*y for x in range(3)] for y in range(3)]              # nested (matrix)
+
+# Rule of thumb:
+#   - list/set/dict comp -> O(n) memory, materialized
+#   - generator          -> O(1) memory, single-pass, lazy
+#     Prefer when feeding sum / any / all / max / min / ''.join.
                 </pre>
             </details>
         </div>
