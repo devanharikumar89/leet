@@ -195,27 +195,22 @@
         <div class="cards">
         <div class="section">
             <details>
-                <summary>► 1. String Methods</summary>
+                <summary>► 1. Strings: Methods, Formatting & Literals</summary>
                 <pre>
+# --- Methods ---
 s = "hello world"
 s.upper()           # "HELLO WORLD"
 s.lower()           # "hello world"
 s.capitalize()      # "Hello world"
 s.split()           # ['hello', 'world']
 s.replace("o", "0") # "hell0 w0rld"
-s.strip()           # Remove leading/trailing whitespace
+s.strip()           # remove leading/trailing whitespace
 s.startswith("he")  # True
 s.endswith("ld")    # True
-s.find("wor")       # 6 (index)
+s.find("wor")       # 6 (index, -1 if not found)
 s.count("l")        # 3 (occurrences)
-                </pre>
-            </details>
-        </div>
-        
-        <div class="section">
-            <details>
-                <summary>► 2. String Formatting & Literals</summary>
-                <pre>
+
+# --- Formatting ---
 name, age = "Bob", 30
 
 # f-strings (preferred)
@@ -232,14 +227,14 @@ f"{name=}"                  # debug: "name='Bob'"   (3.8+)
 # printf-style (legacy)
 "Name: %s, Age: %d" % (name, age)
 
-# String literals
+# --- Literals ---
 multi = """line 1
 line 2"""                   # triple-quoted, may span lines
 raw   = r"C:\path\no\escapes"   # backslashes are literal
 bts   = b"raw bytes"            # bytes literal, not str
 u_esc = "\u00e9 \N{GREEK SMALL LETTER PI}"   # unicode escapes
 
-# Join / split round-trip
+# --- Join / split round-trip ---
 ",".join(["a", "b", "c"])   # "a,b,c"
 "a,b,c".split(",")          # ['a', 'b', 'c']
                 </pre>
@@ -248,7 +243,7 @@ u_esc = "\u00e9 \N{GREEK SMALL LETTER PI}"   # unicode escapes
         
         <div class="section">
             <details>
-                <summary>► 3. Creating Lists</summary>
+                <summary>► 2. Creating Lists</summary>
                 <pre>
 # Literals
 a = []                       # empty (preferred over list())
@@ -313,7 +308,7 @@ b.copy()  # or b[:]  or list(b)      # shallow copy (nested mutables still share
         
         <div class="section">
             <details>
-                <summary>► 4. List Operations</summary>
+                <summary>► 3. List Operations</summary>
                 <pre>
 lst = [1, 2, 3, 4, 5]
 lst.append(6)           # Add to end
@@ -334,7 +329,7 @@ lst.count(3)            # Count occurrences
         
         <div class="section">
             <details>
-                <summary>► 5. List Slicing</summary>
+                <summary>► 4. List Slicing</summary>
                 <pre>
 # Syntax:  seq[start : stop : step]
 #   start default 0  (or len-1 when step<0)
@@ -391,7 +386,7 @@ without_i    = a[:i] + a[i+1:]      # non-mutating removal
         
         <div class="section">
             <details>
-                <summary>► 6. Tuples & Sets at a Glance</summary>
+                <summary>► 5. Tuples & Sets at a Glance</summary>
                 <pre>
 # Tuple - ordered, IMMUTABLE, hashable (if its elements are)
 t = (1, 2, 3)
@@ -424,7 +419,7 @@ fs = frozenset([1, 2, 3])
         
         <div class="section">
             <details>
-                <summary>► 7. Dictionary Operations</summary>
+                <summary>► 6. Dictionary Operations</summary>
                 <pre>
 d = {"name": "John", "age": 30}
 d["name"]           # Access value
@@ -443,7 +438,7 @@ d.clear()           # Remove all items
         
         <div class="section">
             <details>
-                <summary>► 8. Comprehensions (list / set / dict / generator / tuple / str)</summary>
+                <summary>► 7. Comprehensions (list / set / dict / generator / tuple / str)</summary>
                 <pre>
 # Body grammar (shared by all forms):
 #   <expr> for <target> in <iterable> [if <cond>] [for ... in ... [if ...]] ...
@@ -496,7 +491,7 @@ deque((x for x in iterable), maxlen=100)
         
         <div class="section">
             <details>
-                <summary>► 9. Ternary / Conditional Expression</summary>
+                <summary>► 8. Ternary / Conditional Expression</summary>
                 <pre>
 # Syntax:  value_if_true if condition else value_if_false
 # (value comes FIRST - different from C/Java's  cond ? a : b)
@@ -534,7 +529,7 @@ label = {1: "low", 2: "mid", 3: "high"}.get(level, "unknown")
         
         <div class="section">
             <details>
-                <summary>► 10. Functions & Lambda</summary>
+                <summary>► 9. Functions & Lambda</summary>
                 <pre>
 # Function definition
 def greet(name):
@@ -578,7 +573,7 @@ list(filter(lambda x: x % 2 == 0, nums))   # [2, 4]
         
         <div class="section">
             <details>
-                <summary>► 11. Exception Handling</summary>
+                <summary>► 10. Exception Handling</summary>
                 <pre>
 try:
     result = 10 / 0
@@ -594,7 +589,7 @@ finally:
         
         <div class="section">
             <details>
-                <summary>► 12. File Operations</summary>
+                <summary>► 11. File Operations</summary>
                 <pre>
 # Read file
 with open("file.txt", "r") as f:
@@ -618,7 +613,7 @@ os.path.exists("file.txt")
         
         <div class="section">
             <details>
-                <summary>► 13. Common Modules</summary>
+                <summary>► 12. Common Modules</summary>
                 <pre>
 import os              # Operating system operations
 import sys             # System-specific parameters
@@ -634,7 +629,7 @@ from collections import defaultdict, Counter, deque
         
         <div class="section">
             <details>
-                <summary>► 14. Copying Lists (Shallow vs Deep)</summary>
+                <summary>► 13. Copying Lists (Shallow vs Deep)</summary>
                 <pre>
 a = [[1, 2], [3, 4]]
 
@@ -681,7 +676,7 @@ s2 = s.copy()                # set  - shallow
         
         <div class="section">
             <details>
-                <summary>► 15. `a += b` vs `a = a + b` (lists)</summary>
+                <summary>► 14. `a += b` vs `a = a + b` (lists)</summary>
                 <pre>
 # NOT identical for lists!
 # a + b    -> NEW list, then rebinds a
@@ -724,7 +719,7 @@ s += "!"             # equivalent to s = s + "!"   (new string)
         
         <div class="section">
             <details>
-                <summary>► 16. dict vs defaultdict (and Counter)</summary>
+                <summary>► 15. dict vs defaultdict (and Counter)</summary>
                 <pre>
 # --- Plain dict: missing keys raise KeyError ---
 d = {}
@@ -804,7 +799,7 @@ c + Counter(other);  c & Counter(other)   # multiset add / intersection
         
         <div class="section">
             <details>
-                <summary>► 17. Classes & OOP</summary>
+                <summary>► 16. Classes & OOP</summary>
                 <pre>
 class Person:
     species = "Homo sapiens"          # class attribute (shared)
@@ -872,7 +867,7 @@ class Point:
         
         <div class="section">
             <details>
-                <summary>► 18. Array / List</summary>
+                <summary>► 17. Array / List</summary>
                 <p><strong>Time Complexity:</strong> Access O(1), Append/Pop-end O(1) amortized, Insert/Pop-front O(n), Search O(n).</p>
                 <p>For operations, creation patterns, slicing, copying and the <code>+=</code> vs <code>+</code> distinction, see the <em>Cheatsheet</em> blocks above. If you need fast inserts/pops at both ends, use <code>collections.deque</code> (O(1)) instead of a list.</p>
             </details>
@@ -880,7 +875,7 @@ class Point:
         
         <div class="section">
             <details>
-                <summary>► 19. Hash Table / Dictionary</summary>
+                <summary>► 18. Hash Table / Dictionary</summary>
                 <p><strong>Time Complexity:</strong> Insert/Delete/Search O(1) average, O(n) worst case</p>
                 <pre>
 # Using Python's dict
@@ -908,7 +903,7 @@ dd["key"].append(1)  # No KeyError
         
         <div class="section">
             <details>
-                <summary>► 20. Linked List</summary>
+                <summary>► 19. Linked List</summary>
                 <p><strong>Time Complexity:</strong> Access O(n), Insert/Delete O(1) (if at known position), Search O(n)</p>
                 <pre>
 class Node:
@@ -948,7 +943,7 @@ ll.traverse()  # 1 -> 2 -> 3 -> None
         
         <div class="section">
             <details>
-                <summary>► 21. Stack</summary>
+                <summary>► 20. Stack</summary>
                 <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
                 <pre>
@@ -981,7 +976,7 @@ class Stack:
         
         <div class="section">
             <details>
-                <summary>► 22. Queue</summary>
+                <summary>► 21. Queue</summary>
                 <p><strong>Time Complexity:</strong> Enqueue O(1), Dequeue O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> BFS, Task scheduling</p>
                 <pre>
@@ -1016,7 +1011,7 @@ class Queue:
         
         <div class="section">
             <details>
-                <summary>► 23. Heap (Priority Queue)</summary>
+                <summary>► 22. Heap (Priority Queue)</summary>
                 <p><strong>Time Complexity:</strong> Push O(log n), Pop O(log n), Peek O(1)</p>
                 <p><strong>Use case:</strong> Dijkstra's algorithm, K-largest elements</p>
                 <pre>
@@ -1047,7 +1042,7 @@ k_largest = heapq.nlargest(2, arr)  # [5, 4]
         
         <div class="section">
             <details>
-                <summary>► 24. Tree (Binary Tree & BST)</summary>
+                <summary>► 23. Tree (Binary Tree & BST)</summary>
                 <p><strong>Time Complexity:</strong> Search/Insert/Delete O(log n) (balanced), O(n) (worst)</p>
                 <pre>
 class TreeNode:
@@ -1103,7 +1098,7 @@ def postorder(node):     # Left, Right, Root
         
         <div class="section">
             <details>
-                <summary>► 25. Graph</summary>
+                <summary>► 24. Graph</summary>
                 <p><strong>Time Complexity:</strong> Depends on implementation (adjacency list vs matrix)</p>
                 <pre>
 # Adjacency List (most common)
@@ -1145,7 +1140,7 @@ def dfs(graph, vertex, visited=None):
         
         <div class="section">
             <details>
-                <summary>► 26. Searching Algorithms</summary>
+                <summary>► 25. Searching Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Linear Search - O(n)</h4>
                 <pre>
@@ -1189,7 +1184,7 @@ def binary_search_recursive(arr, target, left, right):
         
         <div class="section">
             <details>
-                <summary>► 27. Sorting Algorithms</summary>
+                <summary>► 26. Sorting Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Bubble Sort - O(n²)</h4>
                 <pre>
@@ -1260,7 +1255,7 @@ def quick_sort(arr):
         
         <div class="section">
             <details>
-                <summary>► 28. Other Common Algorithms</summary>
+                <summary>► 27. Other Common Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Two Pointers</h4>
                 <pre>
@@ -1296,7 +1291,7 @@ def max_sum_subarray(arr, k):
         
         <div class="section">
             <details>
-                <summary>► 29. Graph Algorithms</summary>
+                <summary>► 28. Graph Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">DFS (Depth-First Search)</h4>
                 <pre>
@@ -1363,7 +1358,7 @@ def dijkstra(graph, start):
         
         <div class="section">
             <details>
-                <summary>► 30. Dynamic Programming</summary>
+                <summary>► 29. Dynamic Programming</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Fibonacci - O(n)</h4>
                 <pre>
@@ -1426,7 +1421,7 @@ def knapsack(weights, values, capacity):
         
         <div class="section">
             <details>
-                <summary>► 31. Creational Patterns</summary>
+                <summary>► 30. Creational Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Singleton Pattern</h4>
                 <p>Ensures only one instance of a class is created.</p>
@@ -1517,7 +1512,7 @@ pizza = (PizzaBuilder()
         
         <div class="section">
             <details>
-                <summary>► 32. Structural Patterns</summary>
+                <summary>► 31. Structural Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Adapter Pattern</h4>
                 <p>Converts interface of class into expected interface.</p>
@@ -1601,7 +1596,7 @@ car.start_car()  # Hides complexity of Engine and Transmission
         
         <div class="section">
             <details>
-                <summary>► 33. Behavioral Patterns</summary>
+                <summary>► 32. Behavioral Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Observer Pattern</h4>
                 <p>Defines one-to-many dependency where objects notify changes.</p>
