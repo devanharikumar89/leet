@@ -252,6 +252,53 @@ b.copy()  # or b[:]  or list(b)      # shallow copy (nested mutables still share
         
         <div class="section">
             <details>
+                <summary>► Copying Lists (Shallow vs Deep)</summary>
+                <pre>
+a = [[1, 2], [3, 4]]
+
+# ⚠ NOT a copy - just another name for the same list
+b = a
+b is a              # True
+b.append(99)        # a is also mutated
+
+# Shallow copies - new outer list, SAME inner references
+b = a.copy()                # method            (most idiomatic)
+b = a[:]                    # full slice
+b = list(a)                 # constructor
+b = [*a]                    # unpacking
+import copy
+b = copy.copy(a)            # explicit
+
+b.append([5, 6])    # ✅ only b changes (outer is independent)
+b[0].append(99)     # ⚠ a[0] also sees it (inner list is shared)
+b is a              # False
+b[0] is a[0]        # True
+
+# Deep copy - recursively copies nested objects, nothing shared
+import copy
+b = copy.deepcopy(a)
+b[0].append(99)     # ✅ a is untouched
+b[0] is a[0]        # False
+
+# When to use which
+# - Flat list of immutables ([1, 2, 3])      -> any shallow copy is enough
+# - Nested mutables, replacing whole slots   -> shallow is fine
+# - Nested mutables, mutating inner objects  -> copy.deepcopy
+# - Objects with cycles / __deepcopy__       -> copy.deepcopy (handles via memo)
+
+# Other containers behave the same way
+d2 = d.copy()                # dict - shallow
+s2 = s.copy()                # set  - shallow
+# tuples are immutable, but a tuple holding a mutable still aliases:
+#   t = ([],) * 3   ->   t[0].append(1)   mutates all three "rows"
+
+# numpy note: arr.copy() is a full copy; slicing returns a VIEW (not a copy)
+                </pre>
+            </details>
+        </div>
+        
+        <div class="section">
+            <details>
                 <summary>► List Operations</summary>
                 <pre>
 lst = [1, 2, 3, 4, 5]
