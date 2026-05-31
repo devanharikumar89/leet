@@ -779,27 +779,72 @@ from collections import defaultdict, Counter, deque
         
         <!-- DETAILED SECTIONS START HERE -->
 
-        <h2>Part 1: Python Basics</h2>
-        
         <div class="section">
-            <h3>Classes & OOP</h3>
-            <pre>
+            <details>
+                <summary>► Classes & OOP</summary>
+                <pre>
 class Person:
-    def __init__(self, name, age):
-        self.name = name
-        self.age = age
-    
-    def greet(self):
-        return f"Hello, I'm {self.name}"
-    
-    def birthday(self):
-        self.age += 1
+    species = "Homo sapiens"          # class attribute (shared)
 
-# Creating objects
-p1 = Person("Alice", 30)
-print(p1.greet())
-p1.birthday()
-            </pre>
+    def __init__(self, name, age):    # constructor
+        self.name = name              # instance attributes
+        self.age  = age
+
+    def greet(self):                  # instance method
+        return f"Hello, I'm {self.name}"
+
+    def __repr__(self):               # dev-friendly string
+        return f"Person({self.name!r}, {self.age})"
+
+    def __eq__(self, other):          # value equality
+        return isinstance(other, Person) and (self.name, self.age) == (other.name, other.age)
+    def __hash__(self):
+        return hash((self.name, self.age))
+
+p = Person("Alice", 30)
+p.greet()                              # "Hello, I'm Alice"
+
+# Inheritance
+class Employee(Person):
+    def __init__(self, name, age, salary):
+        super().__init__(name, age)
+        self.salary = salary
+    def greet(self):                  # override
+        return super().greet() + " (employee)"
+
+# @property - computed / validated attribute
+class Circle:
+    def __init__(self, r): self._r = r
+    @property
+    def area(self):  return 3.14159 * self._r ** 2
+    @property
+    def r(self):     return self._r
+    @r.setter
+    def r(self, v):
+        if v &lt; 0: raise ValueError
+        self._r = v
+
+# classmethod / staticmethod
+class Date:
+    def __init__(self, y, m, d): self.y, self.m, self.d = y, m, d
+    @classmethod
+    def today(cls): import datetime; t = datetime.date.today(); return cls(t.year, t.month, t.day)
+    @staticmethod
+    def is_leap(y): return y % 4 == 0 and (y % 100 != 0 or y % 400 == 0)
+
+# dataclass - boilerplate-free value objects (3.7+)
+from dataclasses import dataclass, field
+@dataclass
+class Point:
+    x: float
+    y: float = 0.0
+    tags: list = field(default_factory=list)   # ⚠ never use mutable defaults directly
+# auto-generates __init__, __repr__, __eq__
+
+# @dataclass(frozen=True) -> immutable & hashable
+# @dataclass(slots=True)  -> uses __slots__ (smaller, faster attr access, no __dict__)
+                </pre>
+            </details>
         </div>
 
         <!-- DATA STRUCTURES SECTION -->
