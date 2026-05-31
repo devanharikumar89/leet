@@ -713,73 +713,30 @@ def print_args(*args, **kwargs):
     print(kwargs)    # Dictionary
 
 print_args(1, 2, 3, name="John", age=30)
-
-# Lambda (anonymous function)
-square = lambda x: x ** 2
-square(5)  # 25
+# (lambda / anonymous functions are in the cheatsheet)
             </pre>
         </div>
         
         <div class="section">
             <h3>String Operations</h3>
+            <p>(See the cheatsheet for common string methods and the list-slicing semantics that also apply to strings.)</p>
             <pre>
-s = "Python Programming"
-
-# Methods
-s.lower()           # "python programming"
-s.upper()           # "PYTHON PROGRAMMING"
-s.capitalize()      # "Python programming"
-s.strip()           # Remove whitespace
-
 # Formatting
 name = "Bob"
 age = 30
-f"Name: {name}, Age: {age}"  # f-string
-"Name: {}, Age: {}".format(name, age)
+f"Name: {name}, Age: {age}"           # f-string (preferred)
+"Name: {}, Age: {}".format(name, age) # str.format
+"Name: %s, Age: %d" % (name, age)     # printf-style (legacy)
 
-# String slicing
-s[0:6]   # "Python"
-s[:6]    # "Python"
-s[7:]    # "Programming"
-s[::2]   # "Pto rgamn"
-s[::-1]  # Reverse
-            </pre>
-        </div>
-        
-        <div class="section">
-            <h3>List Comprehension</h3>
-            <pre>
-# Basic list comprehension
-squares = [x**2 for x in range(10)]
+# Multi-line / raw / bytes literals
+multi = """line 1
+line 2"""
+raw   = r"C:\path\no\escapes"
+b     = b"raw bytes"
 
-# With condition
-evens = [x for x in range(10) if x % 2 == 0]
-
-# Nested comprehension
-matrix = [[x*y for x in range(3)] for y in range(3)]
-
-# Dictionary comprehension
-square_dict = {x: x**2 for x in range(5)}
-
-# Set comprehension
-unique_squares = {x**2 for x in [1, 1, 2, 2, 3, 3]}
-            </pre>
-        </div>
-        
-        <div class="section">
-            <h3>Exception Handling</h3>
-            <pre>
-try:
-    num = int("invalid")
-    result = 10 / 0
-except ValueError:
-    print("Invalid input")
-except ZeroDivisionError:
-    print("Cannot divide by zero")
-except Exception as e:
-    print(f"Unexpected error: {e}")
-finally:
-    print("Cleanup code")
+# Join / split round-trip
+",".join(["a", "b", "c"])             # "a,b,c"
+"a,b,c".split(",")                    # ['a', 'b', 'c']
             </pre>
         </div>
         
