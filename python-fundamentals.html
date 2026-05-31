@@ -493,6 +493,20 @@ d.clear()           # Remove all items
 
 # Set comprehension
 {x for x in range(5)}             # {0, 1, 2, 3, 4}
+
+# Generator expression - lazy, single-pass, no list built in memory
+(x*x for x in range(5))           # <generator object>
+sum(x*x for x in range(10))       # parens of the call double as the gen's parens
+list(x for x in range(5))         # materialize a gen into a list
+
+# The bare form  `x for x in range(5)`  is a generator-expression body.
+# It needs delimiters to become an object:
+#   [ ... ]  -> list comprehension
+#   { ... }  -> set / dict comprehension
+#   ( ... )  -> generator expression
+# A `for` clause and optional `if` clauses are the comprehension clauses;
+# you can have multiple:
+#   [(x, y) for x in range(3) for y in range(3) if x != y]
                 </pre>
             </details>
         </div>
