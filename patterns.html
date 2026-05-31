@@ -1,0 +1,714 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>LeetCode Patterns</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+            line-height: 1.6;
+            color: #333;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            padding: 30px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 32px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+            font-size: 14px;
+        }
+        h2 {
+            color: #667eea;
+            margin: 0 0 12px 0;
+            font-size: 22px;
+        }
+        h3 {
+            color: #444;
+            margin: 18px 0 8px 0;
+            font-size: 16px;
+        }
+        .pattern {
+            margin-bottom: 25px;
+            border-left: 4px solid #667eea;
+            padding: 4px 0 4px 18px;
+        }
+        details {
+            background: #fafafa;
+            border: 1px solid #eee;
+            border-radius: 6px;
+            padding: 10px 14px;
+            margin-bottom: 12px;
+        }
+        details[open] {
+            background: #fff;
+        }
+        summary {
+            cursor: pointer;
+            font-weight: 600;
+            color: #333;
+            padding: 4px 0;
+            outline: none;
+        }
+        summary:hover { color: #667eea; }
+        code {
+            background: #f4f4f4;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
+            color: #d63384;
+            font-size: 13px;
+        }
+        pre {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            overflow-x: auto;
+            margin: 12px 0;
+            font-family: 'Fira Code', 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.5;
+        }
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
+            color: #667eea;
+            text-decoration: none;
+            font-weight: 500;
+        }
+        .back-link:hover { text-decoration: underline; }
+        .when {
+            background: #eef4ff;
+            border-left: 3px solid #667eea;
+            padding: 8px 12px;
+            margin: 8px 0;
+            font-size: 14px;
+        }
+        .complexity {
+            font-size: 13px;
+            color: #555;
+            margin: 6px 0;
+        }
+        ul { margin: 6px 0 6px 20px; font-size: 14px; }
+        li { margin: 2px 0; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <a href="index.html" class="back-link">← Back to Home</a>
+
+        <h1>🧩 LeetCode Patterns</h1>
+        <p class="subtitle">Reusable templates for the most common interview problem patterns.</p>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>1. Two Pointers</h2>
+            <div class="when"><strong>Use when:</strong> a sorted array / linked list, pair-sum, palindrome check, removing duplicates, partitioning.</div>
+            <p class="complexity"><strong>Time:</strong> O(n) &nbsp;|&nbsp; <strong>Space:</strong> O(1)</p>
+
+            <details>
+                <summary>Template &mdash; opposite ends</summary>
+                <pre>
+def two_sum_sorted(arr, target):
+    l, r = 0, len(arr) - 1
+    while l &lt; r:
+        s = arr[l] + arr[r]
+        if s == target: return [l, r]
+        if s &lt; target:  l += 1
+        else:           r -= 1
+    return [-1, -1]
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; same direction (fast/slow)</summary>
+                <pre>
+def remove_duplicates(arr):
+    if not arr: return 0
+    slow = 0
+    for fast in range(1, len(arr)):
+        if arr[fast] != arr[slow]:
+            slow += 1
+            arr[slow] = arr[fast]
+    return slow + 1
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>2. Sliding Window</h2>
+            <div class="when"><strong>Use when:</strong> longest/shortest/contains subarray or substring satisfying a condition.</div>
+            <p class="complexity"><strong>Time:</strong> O(n) &nbsp;|&nbsp; <strong>Space:</strong> O(k) for the window state.</p>
+
+            <details>
+                <summary>Template &mdash; variable-size window</summary>
+                <pre>
+from collections import Counter
+
+def longest_substring_k_distinct(s, k):
+    counts = Counter()
+    l = best = 0
+    for r, ch in enumerate(s):
+        counts[ch] += 1
+        while len(counts) &gt; k:
+            counts[s[l]] -= 1
+            if counts[s[l]] == 0:
+                del counts[s[l]]      # keep window state clean
+            l += 1
+        best = max(best, r - l + 1)
+    return best
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; fixed-size window</summary>
+                <pre>
+def max_sum_window(arr, k):
+    window = sum(arr[:k])
+    best = window
+    for i in range(k, len(arr)):
+        window += arr[i] - arr[i - k]
+        best = max(best, window)
+    return best
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>3. Fast &amp; Slow Pointers (Floyd&apos;s Tortoise &amp; Hare)</h2>
+            <div class="when"><strong>Use when:</strong> cycle detection, finding the middle of a linked list, &quot;happy number&quot;-style state machines.</div>
+            <p class="complexity"><strong>Time:</strong> O(n) &nbsp;|&nbsp; <strong>Space:</strong> O(1)</p>
+
+            <details>
+                <summary>Template &mdash; cycle detection &amp; cycle start</summary>
+                <pre>
+def detect_cycle_start(head):
+    slow = fast = head
+    while fast and fast.next:
+        slow = slow.next
+        fast = fast.next.next
+        if slow is fast:
+            # phase 2: walk one from head, one from meeting point
+            p = head
+            while p is not slow:
+                p, slow = p.next, slow.next
+            return p
+    return None
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>4. Prefix Sum / Difference Array</h2>
+            <div class="when"><strong>Use when:</strong> repeated range-sum queries, subarray-sum-equals-k, range increments.</div>
+            <p class="complexity"><strong>Time:</strong> build O(n), query O(1) &nbsp;|&nbsp; <strong>Space:</strong> O(n)</p>
+
+            <details>
+                <summary>Template &mdash; subarray sum equals k (hash map of prefix sums)</summary>
+                <pre>
+from collections import defaultdict
+
+def subarray_sum_equals_k(nums, k):
+    seen = defaultdict(int)
+    seen[0] = 1            # empty prefix
+    cur = ans = 0
+    for x in nums:
+        cur += x
+        ans += seen[cur - k]
+        seen[cur] += 1
+    return ans
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>5. Binary Search</h2>
+            <div class="when"><strong>Use when:</strong> sorted input, or any monotonic predicate <code>f(x) -&gt; bool</code> &mdash; &quot;smallest x that works&quot;.</div>
+            <p class="complexity"><strong>Time:</strong> O(log n) over the search space.</p>
+
+            <details>
+                <summary>Template &mdash; classic find</summary>
+                <pre>
+def bsearch(arr, target):
+    lo, hi = 0, len(arr) - 1
+    while lo &lt;= hi:
+        mid = (lo + hi) // 2
+        if arr[mid] == target: return mid
+        if arr[mid] &lt; target:  lo = mid + 1
+        else:                  hi = mid - 1
+    return -1
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; &quot;binary search on the answer&quot; (lower bound)</summary>
+                <pre>
+def smallest_x_such_that(feasible, lo, hi):
+    # find min x in [lo, hi] with feasible(x) == True
+    while lo &lt; hi:
+        mid = (lo + hi) // 2
+        if feasible(mid): hi = mid
+        else:             lo = mid + 1
+    return lo
+
+# bisect module: standard library
+import bisect
+i = bisect.bisect_left(arr, target)   # leftmost insertion point
+j = bisect.bisect_right(arr, target)  # rightmost insertion point
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>6. BFS (Breadth-First Search)</h2>
+            <div class="when"><strong>Use when:</strong> shortest path in an unweighted graph/grid, level-order tree traversal, &quot;minimum steps&quot;.</div>
+            <p class="complexity"><strong>Time:</strong> O(V + E) &nbsp;|&nbsp; <strong>Space:</strong> O(V)</p>
+
+            <details>
+                <summary>Template &mdash; grid BFS</summary>
+                <pre>
+from collections import deque
+
+DIRS = [(1,0), (-1,0), (0,1), (0,-1)]
+
+def bfs(grid, start):
+    R, C = len(grid), len(grid[0])
+    q = deque([(start, 0)])
+    seen = {start}
+    while q:
+        (r, c), d = q.popleft()
+        # ... process (r, c) at distance d ...
+        for dr, dc in DIRS:
+            nr, nc = r + dr, c + dc
+            if 0 &lt;= nr &lt; R and 0 &lt;= nc &lt; C and (nr, nc) not in seen and grid[nr][nc] != '#':
+                seen.add((nr, nc))
+                q.append(((nr, nc), d + 1))
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>7. DFS / Backtracking</h2>
+            <div class="when"><strong>Use when:</strong> all paths/permutations/combinations/subsets, constraint satisfaction (Sudoku, N-queens), tree/graph traversal.</div>
+            <p class="complexity"><strong>Time:</strong> often exponential; prune aggressively.</p>
+
+            <details>
+                <summary>Template &mdash; backtracking (subsets / permutations / combinations)</summary>
+                <pre>
+def subsets(nums):
+    res, path = [], []
+    def dfs(i):
+        if i == len(nums):
+            res.append(path.copy())   # ⚠ copy! path is mutated
+            return
+        # exclude
+        dfs(i + 1)
+        # include
+        path.append(nums[i])
+        dfs(i + 1)
+        path.pop()
+    dfs(0)
+    return res
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; recursive DFS on a graph</summary>
+                <pre>
+def dfs(node, graph, seen):
+    if node in seen: return
+    seen.add(node)
+    for nb in graph[node]:
+        dfs(nb, graph, seen)
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>8. Heap / Top-K</h2>
+            <div class="when"><strong>Use when:</strong> top-K, K-th smallest/largest, merge K sorted lists, scheduling, Dijkstra.</div>
+            <p class="complexity"><strong>Time:</strong> O(n log k) for top-K; O((V+E) log V) for Dijkstra.</p>
+
+            <details>
+                <summary>Template &mdash; top-K largest with a min-heap of size k</summary>
+                <pre>
+import heapq
+
+def top_k(nums, k):
+    h = []                              # min-heap
+    for x in nums:
+        heapq.heappush(h, x)
+        if len(h) &gt; k:
+            heapq.heappop(h)            # drop smallest -> keep k largest
+    return h                             # the k largest, unordered
+
+# Max-heap trick: push negated values
+heapq.heappush(h, -x); -heapq.heappop(h)
+
+# Dijkstra (sparse, non-negative weights)
+def dijkstra(graph, src):
+    dist = {src: 0}
+    pq = [(0, src)]
+    while pq:
+        d, u = heapq.heappop(pq)
+        if d &gt; dist[u]: continue
+        for v, w in graph[u]:
+            nd = d + w
+            if nd &lt; dist.get(v, float('inf')):
+                dist[v] = nd
+                heapq.heappush(pq, (nd, v))
+    return dist
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>9. Hash Map / Set (counting, lookups, dedup)</h2>
+            <div class="when"><strong>Use when:</strong> O(1) lookups by key, frequency counting, anagram grouping, "seen before".</div>
+
+            <details>
+                <summary>Template &mdash; Two Sum (one pass)</summary>
+                <pre>
+def two_sum(nums, target):
+    seen = {}                         # value -> index
+    for i, x in enumerate(nums):
+        if target - x in seen:
+            return [seen[target - x], i]
+        seen[x] = i
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; group anagrams</summary>
+                <pre>
+from collections import defaultdict
+
+def group_anagrams(words):
+    groups = defaultdict(list)
+    for w in words:
+        key = ''.join(sorted(w))      # or tuple of letter counts
+        groups[key].append(w)
+    return list(groups.values())
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>10. Monotonic Stack / Queue</h2>
+            <div class="when"><strong>Use when:</strong> &quot;next greater/smaller element&quot;, largest rectangle in histogram, sliding-window maximum.</div>
+            <p class="complexity"><strong>Time:</strong> O(n) amortized.</p>
+
+            <details>
+                <summary>Template &mdash; next greater element</summary>
+                <pre>
+def next_greater(nums):
+    res = [-1] * len(nums)
+    stack = []                        # indices, values strictly decreasing
+    for i, x in enumerate(nums):
+        while stack and nums[stack[-1]] &lt; x:
+            res[stack.pop()] = x
+        stack.append(i)
+    return res
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; sliding-window max (monotonic deque)</summary>
+                <pre>
+from collections import deque
+
+def sliding_max(nums, k):
+    dq = deque()                      # store indices, values decreasing
+    out = []
+    for i, x in enumerate(nums):
+        while dq and dq[0] &lt;= i - k:        # drop out-of-window
+            dq.popleft()
+        while dq and nums[dq[-1]] &lt; x:      # maintain monotonicity
+            dq.pop()
+        dq.append(i)
+        if i &gt;= k - 1:
+            out.append(nums[dq[0]])
+    return out
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>11. Dynamic Programming</h2>
+            <div class="when"><strong>Use when:</strong> optimal substructure + overlapping subproblems &mdash; counting, optimization, decision over sequences/grids.</div>
+
+            <details>
+                <summary>Template &mdash; top-down with memoization</summary>
+                <pre>
+from functools import lru_cache
+
+def coin_change(coins, amount):
+    @lru_cache(maxsize=None)
+    def dp(rem):
+        if rem == 0: return 0
+        if rem &lt; 0:  return float('inf')
+        return 1 + min(dp(rem - c) for c in coins)
+    ans = dp(amount)
+    return ans if ans != float('inf') else -1
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; bottom-up (tabulation)</summary>
+                <pre>
+def coin_change(coins, amount):
+    INF = float('inf')
+    dp = [0] + [INF] * amount
+    for a in range(1, amount + 1):
+        for c in coins:
+            if c &lt;= a:
+                dp[a] = min(dp[a], dp[a - c] + 1)
+    return dp[amount] if dp[amount] != INF else -1
+                </pre>
+            </details>
+
+            <details>
+                <summary>Template &mdash; 2D grid DP (unique paths)</summary>
+                <pre>
+def unique_paths(m, n):
+    dp = [[1] * n for _ in range(m)]
+    for r in range(1, m):
+        for c in range(1, n):
+            dp[r][c] = dp[r-1][c] + dp[r][c-1]
+    return dp[m-1][n-1]
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>12. Greedy</h2>
+            <div class="when"><strong>Use when:</strong> a local optimum provably leads to a global optimum &mdash; interval scheduling, jump game, Huffman.</div>
+
+            <details>
+                <summary>Template &mdash; interval scheduling (max non-overlap)</summary>
+                <pre>
+def max_non_overlapping(intervals):
+    intervals.sort(key=lambda x: x[1])      # sort by END time
+    count, end = 0, float('-inf')
+    for s, e in intervals:
+        if s &gt;= end:
+            count += 1
+            end = e
+    return count
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>13. Union-Find (Disjoint Set Union)</h2>
+            <div class="when"><strong>Use when:</strong> connectivity queries, counting connected components, Kruskal&apos;s MST, cycle detection in an undirected graph.</div>
+            <p class="complexity"><strong>Time:</strong> ~O(α(n)) per op (essentially constant).</p>
+
+            <details>
+                <summary>Template &mdash; path compression + union by rank</summary>
+                <pre>
+class DSU:
+    def __init__(self, n):
+        self.p = list(range(n))
+        self.r = [0] * n
+    def find(self, x):
+        while self.p[x] != x:
+            self.p[x] = self.p[self.p[x]]   # path compression
+            x = self.p[x]
+        return x
+    def union(self, a, b):
+        ra, rb = self.find(a), self.find(b)
+        if ra == rb: return False
+        if self.r[ra] &lt; self.r[rb]: ra, rb = rb, ra
+        self.p[rb] = ra
+        if self.r[ra] == self.r[rb]: self.r[ra] += 1
+        return True
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>14. Topological Sort (Kahn&apos;s Algorithm)</h2>
+            <div class="when"><strong>Use when:</strong> course schedule, build order, any DAG ordering with dependencies.</div>
+            <p class="complexity"><strong>Time:</strong> O(V + E)</p>
+
+            <details>
+                <summary>Template &mdash; BFS / Kahn</summary>
+                <pre>
+from collections import defaultdict, deque
+
+def topo_sort(n, edges):                   # edges: (u -&gt; v)
+    g = defaultdict(list)
+    indeg = [0] * n
+    for u, v in edges:
+        g[u].append(v); indeg[v] += 1
+    q = deque(i for i in range(n) if indeg[i] == 0)
+    order = []
+    while q:
+        u = q.popleft(); order.append(u)
+        for v in g[u]:
+            indeg[v] -= 1
+            if indeg[v] == 0: q.append(v)
+    return order if len(order) == n else []   # [] -&gt; cycle exists
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>15. Tree Traversals</h2>
+            <div class="when"><strong>Use when:</strong> any binary-tree problem &mdash; recursion is usually cleanest.</div>
+
+            <details>
+                <summary>Templates &mdash; DFS variants &amp; BFS level-order</summary>
+                <pre>
+# Recursive DFS
+def inorder(node, out):
+    if not node: return
+    inorder(node.left, out)
+    out.append(node.val)
+    inorder(node.right, out)
+
+# Iterative inorder with an explicit stack
+def inorder_iter(root):
+    stack, out, cur = [], [], root
+    while cur or stack:
+        while cur:
+            stack.append(cur); cur = cur.left
+        cur = stack.pop()
+        out.append(cur.val)
+        cur = cur.right
+    return out
+
+# BFS level order
+from collections import deque
+def level_order(root):
+    if not root: return []
+    q, out = deque([root]), []
+    while q:
+        level = []
+        for _ in range(len(q)):
+            n = q.popleft(); level.append(n.val)
+            if n.left:  q.append(n.left)
+            if n.right: q.append(n.right)
+        out.append(level)
+    return out
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>16. Trie (Prefix Tree)</h2>
+            <div class="when"><strong>Use when:</strong> prefix queries, autocomplete, word-search-II style problems.</div>
+
+            <details>
+                <summary>Template &mdash; minimal dict-based trie</summary>
+                <pre>
+class Trie:
+    def __init__(self):
+        self.root = {}
+    def insert(self, word):
+        node = self.root
+        for ch in word:
+            node = node.setdefault(ch, {})
+        node['$'] = True               # end-of-word marker
+    def search(self, word):
+        node = self.root
+        for ch in word:
+            if ch not in node: return False
+            node = node[ch]
+        return '$' in node
+    def startsWith(self, prefix):
+        node = self.root
+        for ch in prefix:
+            if ch not in node: return False
+            node = node[ch]
+        return True
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>17. Bit Manipulation</h2>
+            <div class="when"><strong>Use when:</strong> subsets via bitmask, single-number XOR tricks, power-of-two checks, DP over subsets.</div>
+
+            <details>
+                <summary>Common tricks</summary>
+                <pre>
+x &amp; (x - 1)              # clears lowest set bit;  == 0 iff x is power of two
+x &amp; -x                   # isolates lowest set bit
+bin(x).count('1')        # popcount
+x ^ y                    # toggle / find unique element (XOR all)
+x | (1 &lt;&lt; i)             # set bit i
+x &amp; ~(1 &lt;&lt; i)            # clear bit i
+(x &gt;&gt; i) &amp; 1             # read bit i
+
+# Iterate over all subsets of a bitmask m
+sub = m
+while sub:
+    # ... use sub ...
+    sub = (sub - 1) &amp; m
+# (the empty subset 0 is handled separately if needed)
+                </pre>
+            </details>
+        </div>
+
+        <!-- ============================================================== -->
+        <div class="pattern">
+            <h2>Pattern Picker (Quick Heuristics)</h2>
+            <ul>
+                <li>"Sorted array + pair/triplet" &rarr; <strong>Two Pointers</strong></li>
+                <li>"Longest/shortest contiguous ... with constraint" &rarr; <strong>Sliding Window</strong></li>
+                <li>"Cycle / middle of linked list" &rarr; <strong>Fast &amp; Slow</strong></li>
+                <li>"Sum of range / subarray sum = k" &rarr; <strong>Prefix Sum</strong></li>
+                <li>"Sorted input OR monotonic predicate" &rarr; <strong>Binary Search</strong></li>
+                <li>"Shortest path in unweighted graph / level-order" &rarr; <strong>BFS</strong></li>
+                <li>"All combinations / permutations / paths" &rarr; <strong>DFS + Backtracking</strong></li>
+                <li>"Top-K / K-th / merge K sorted" &rarr; <strong>Heap</strong></li>
+                <li>"Count / lookup / dedup by value" &rarr; <strong>Hash map / set</strong></li>
+                <li>"Next greater / sliding max" &rarr; <strong>Monotonic Stack/Deque</strong></li>
+                <li>"Optimal value over sequence/grid + overlapping subproblems" &rarr; <strong>DP</strong></li>
+                <li>"Local choice = global optimum" &rarr; <strong>Greedy</strong></li>
+                <li>"Connectivity / components" &rarr; <strong>Union-Find</strong></li>
+                <li>"Dependency ordering on a DAG" &rarr; <strong>Topological Sort</strong></li>
+                <li>"Prefix queries / autocomplete" &rarr; <strong>Trie</strong></li>
+                <li>"Subsets up to ~20 elements / XOR puzzles" &rarr; <strong>Bitmask</strong></li>
+            </ul>
+        </div>
+    </div>
+</body>
+</html>

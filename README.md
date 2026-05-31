@@ -20,6 +20,7 @@ All content is provided in **HTML format** for easy readability and navigation:
 - **index.html** - Main hub with links to all sections
 - **python-fundamentals.html** - Comprehensive guide covering a Quick Reference cheatsheet plus Python Basics, Data Structures, Algorithms, and Design Patterns
 - **problem-solving.html** - Common coding problems with solutions and explanations
+- **patterns.html** - Reusable templates for the most common LeetCode problem patterns
 
 ## 🚀 Getting Started
 
