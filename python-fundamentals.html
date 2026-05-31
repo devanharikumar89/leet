@@ -322,20 +322,21 @@ b.copy()  # or b[:]  or list(b)      # shallow copy (nested mutables still share
         <div class="section">
             <details>
                 <summary>► 3. List Operations</summary>
+                <p><strong>Time Complexity:</strong> Access O(1), Append/Pop-end O(1) amortized, Insert/Pop-front O(n), Search O(n). For O(1) inserts/pops at both ends use <code>collections.deque</code>.</p>
                 <pre>
 lst = [1, 2, 3, 4, 5]
-lst.append(6)           # Add to end
+lst.append(6)           # Add to end                       O(1) amortized
 lst.extend([7, 8])      # Add multiple items
-lst.insert(0, 0)        # Insert at index
-lst.remove(3)           # Remove by value
-lst.pop()               # Remove and return last item
-lst.pop(0)              # Remove and return at index
-lst.sort()              # Sort in-place
-lst.reverse()           # Reverse in-place
+lst.insert(0, 0)        # Insert at index                  O(n)
+lst.remove(3)           # Remove first matching value      O(n)
+lst.pop()               # Remove and return last item      O(1)
+lst.pop(0)              # Remove and return at index       O(n)
+lst.sort()              # Sort in-place                    O(n log n)
+lst.reverse()           # Reverse in-place                 O(n)
 lst.clear()             # Remove all items
-len(lst)                # Get length
-lst.index(2)            # Find index of value
-lst.count(3)            # Count occurrences
+len(lst)                # Get length                       O(1)
+lst.index(2)            # Find index of value              O(n)
+lst.count(3)            # Count occurrences                O(n)
                 </pre>
             </details>
         </div>
@@ -877,18 +878,9 @@ class Point:
                 </pre>
             </details>
         </div>
-        
         <div class="section">
             <details>
-                <summary>► 17. Array / List</summary>
-                <p><strong>Time Complexity:</strong> Access O(1), Append/Pop-end O(1) amortized, Insert/Pop-front O(n), Search O(n).</p>
-                <p>For operations, creation patterns, slicing, copying and the <code>+=</code> vs <code>+</code> distinction, see the <em>Cheatsheet</em> blocks above. If you need fast inserts/pops at both ends, use <code>collections.deque</code> (O(1)) instead of a list.</p>
-            </details>
-        </div>
-        
-        <div class="section">
-            <details>
-                <summary>► 18. Hash Table / Dictionary</summary>
+                <summary>► 17. Hash Table / Dictionary</summary>
                 <p><strong>Time Complexity:</strong> Insert/Delete/Search O(1) average, O(n) worst case</p>
                 <pre>
 # Using Python's dict
@@ -916,7 +908,7 @@ dd["key"].append(1)  # No KeyError
         
         <div class="section">
             <details>
-                <summary>► 19. Linked List</summary>
+                <summary>► 18. Linked List</summary>
                 <p><strong>Time Complexity:</strong> Access O(n), Insert/Delete O(1) (if at known position), Search O(n)</p>
                 <pre>
 class Node:
@@ -956,7 +948,7 @@ ll.traverse()  # 1 -> 2 -> 3 -> None
         
         <div class="section">
             <details>
-                <summary>► 20. Stack</summary>
+                <summary>► 19. Stack</summary>
                 <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
                 <pre>
@@ -989,7 +981,7 @@ class Stack:
         
         <div class="section">
             <details>
-                <summary>► 21. Queue</summary>
+                <summary>► 20. Queue</summary>
                 <p><strong>Time Complexity:</strong> Enqueue O(1), Dequeue O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> BFS, Task scheduling</p>
                 <pre>
@@ -1024,7 +1016,7 @@ class Queue:
         
         <div class="section">
             <details>
-                <summary>► 22. Heap (Priority Queue)</summary>
+                <summary>► 21. Heap (Priority Queue)</summary>
                 <p><strong>Time Complexity:</strong> Push O(log n), Pop O(log n), Peek O(1)</p>
                 <p><strong>Use case:</strong> Dijkstra's algorithm, K-largest elements</p>
                 <pre>
@@ -1055,7 +1047,7 @@ k_largest = heapq.nlargest(2, arr)  # [5, 4]
         
         <div class="section">
             <details>
-                <summary>► 23. Tree (Binary Tree & BST)</summary>
+                <summary>► 22. Tree (Binary Tree & BST)</summary>
                 <p><strong>Time Complexity:</strong> Search/Insert/Delete O(log n) (balanced), O(n) (worst)</p>
                 <pre>
 class TreeNode:
@@ -1111,7 +1103,7 @@ def postorder(node):     # Left, Right, Root
         
         <div class="section">
             <details>
-                <summary>► 24. Graph</summary>
+                <summary>► 23. Graph</summary>
                 <p><strong>Time Complexity:</strong> Depends on implementation (adjacency list vs matrix)</p>
                 <pre>
 # Adjacency List (most common)
@@ -1153,7 +1145,7 @@ def dfs(graph, vertex, visited=None):
         
         <div class="section">
             <details>
-                <summary>► 25. Searching Algorithms</summary>
+                <summary>► 24. Searching Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Linear Search - O(n)</h4>
                 <pre>
@@ -1197,7 +1189,7 @@ def binary_search_recursive(arr, target, left, right):
         
         <div class="section">
             <details>
-                <summary>► 26. Sorting Algorithms</summary>
+                <summary>► 25. Sorting Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Bubble Sort - O(n²)</h4>
                 <pre>
@@ -1268,7 +1260,7 @@ def quick_sort(arr):
         
         <div class="section">
             <details>
-                <summary>► 27. Other Common Algorithms</summary>
+                <summary>► 26. Other Common Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Two Pointers</h4>
                 <pre>
@@ -1304,7 +1296,7 @@ def max_sum_subarray(arr, k):
         
         <div class="section">
             <details>
-                <summary>► 28. Graph Algorithms</summary>
+                <summary>► 27. Graph Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">DFS (Depth-First Search)</h4>
                 <pre>
@@ -1371,7 +1363,7 @@ def dijkstra(graph, start):
         
         <div class="section">
             <details>
-                <summary>► 29. Dynamic Programming</summary>
+                <summary>► 28. Dynamic Programming</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Fibonacci - O(n)</h4>
                 <pre>
@@ -1434,7 +1426,7 @@ def knapsack(weights, values, capacity):
         
         <div class="section">
             <details>
-                <summary>► 30. Creational Patterns</summary>
+                <summary>► 29. Creational Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Singleton Pattern</h4>
                 <p>Ensures only one instance of a class is created.</p>
@@ -1525,7 +1517,7 @@ pizza = (PizzaBuilder()
         
         <div class="section">
             <details>
-                <summary>► 31. Structural Patterns</summary>
+                <summary>► 30. Structural Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Adapter Pattern</h4>
                 <p>Converts interface of class into expected interface.</p>
@@ -1609,7 +1601,7 @@ car.start_car()  # Hides complexity of Engine and Transmission
         
         <div class="section">
             <details>
-                <summary>► 32. Behavioral Patterns</summary>
+                <summary>► 31. Behavioral Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Observer Pattern</h4>
                 <p>Defines one-to-many dependency where objects notify changes.</p>
