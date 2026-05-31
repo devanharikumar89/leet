@@ -434,18 +434,26 @@ fs = frozenset([1, 2, 3])
         <div class="section">
             <details>
                 <summary>► 6. Dictionary Operations</summary>
+                <p><strong>Time Complexity:</strong> Insert / Delete / Lookup O(1) average, O(n) worst case (pathological hash collisions). Keys must be hashable.</p>
                 <pre>
 d = {"name": "John", "age": 30}
-d["name"]           # Access value
-d.get("name")       # Safe access (returns None if key doesn't exist)
-d.get("city", "NY") # Default value
-d["city"] = "NYC"   # Add/update key
-del d["age"]        # Delete key
-d.keys()            # Get all keys
-d.values()          # Get all values
-d.items()           # Get key-value pairs
-d.pop("name")       # Remove and return value
-d.clear()           # Remove all items
+d["name"]            # Access value                       (KeyError if missing)
+d.get("name")        # Safe access (returns None if key doesn't exist)
+d.get("city", "NY")  # Default value if missing
+d["city"] = "NYC"    # Add / update key                   O(1)
+del d["age"]         # Delete key                         O(1)
+"name" in d          # Membership test                    O(1)
+len(d)               # Number of items                    O(1)
+d.keys()             # Get all keys      (view object)
+d.values()           # Get all values    (view object)
+d.items()            # Get key-value pairs (view object)
+d.pop("name")        # Remove and return value
+d.pop("zzz", None)   # Safe pop with default
+d.setdefault(k, []).append(v)   # group-by idiom
+d.update(other)      # Merge in another dict / iterable of pairs
+d | other            # Merge into new dict   (3.9+)
+d |= other           # Merge in place        (3.9+)
+d.clear()            # Remove all items
                 </pre>
             </details>
         </div>
@@ -880,35 +888,7 @@ class Point:
         </div>
         <div class="section">
             <details>
-                <summary>► 17. Hash Table / Dictionary</summary>
-                <p><strong>Time Complexity:</strong> Insert/Delete/Search O(1) average, O(n) worst case</p>
-                <pre>
-# Using Python's dict
-hashmap = {}
-hashmap["key1"] = "value1"  # Insert: O(1)
-print(hashmap["key1"])      # Lookup: O(1)
-del hashmap["key1"]         # Delete: O(1)
-
-<b class="hd">Check key existence</b>
-if "key1" in hashmap:
-    print("Found")
-
-<b class="hd">Dictionary methods</b>
-keys = hashmap.keys()
-values = hashmap.values()
-items = hashmap.items()
-
-<b class="hd">Using defaultdict</b>
-from collections import defaultdict
-dd = defaultdict(list)
-dd["key"].append(1)  # No KeyError
-                </pre>
-            </details>
-        </div>
-        
-        <div class="section">
-            <details>
-                <summary>► 18. Linked List</summary>
+                <summary>► 17. Linked List</summary>
                 <p><strong>Time Complexity:</strong> Access O(n), Insert/Delete O(1) (if at known position), Search O(n)</p>
                 <pre>
 class Node:
@@ -948,7 +928,7 @@ ll.traverse()  # 1 -> 2 -> 3 -> None
         
         <div class="section">
             <details>
-                <summary>► 19. Stack</summary>
+                <summary>► 18. Stack</summary>
                 <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
                 <pre>
@@ -981,7 +961,7 @@ class Stack:
         
         <div class="section">
             <details>
-                <summary>► 20. Queue</summary>
+                <summary>► 19. Queue</summary>
                 <p><strong>Time Complexity:</strong> Enqueue O(1), Dequeue O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> BFS, Task scheduling</p>
                 <pre>
@@ -1016,7 +996,7 @@ class Queue:
         
         <div class="section">
             <details>
-                <summary>► 21. Heap (Priority Queue)</summary>
+                <summary>► 20. Heap (Priority Queue)</summary>
                 <p><strong>Time Complexity:</strong> Push O(log n), Pop O(log n), Peek O(1)</p>
                 <p><strong>Use case:</strong> Dijkstra's algorithm, K-largest elements</p>
                 <pre>
@@ -1047,7 +1027,7 @@ k_largest = heapq.nlargest(2, arr)  # [5, 4]
         
         <div class="section">
             <details>
-                <summary>► 22. Tree (Binary Tree & BST)</summary>
+                <summary>► 21. Tree (Binary Tree & BST)</summary>
                 <p><strong>Time Complexity:</strong> Search/Insert/Delete O(log n) (balanced), O(n) (worst)</p>
                 <pre>
 class TreeNode:
@@ -1103,7 +1083,7 @@ def postorder(node):     # Left, Right, Root
         
         <div class="section">
             <details>
-                <summary>► 23. Graph</summary>
+                <summary>► 22. Graph</summary>
                 <p><strong>Time Complexity:</strong> Depends on implementation (adjacency list vs matrix)</p>
                 <pre>
 # Adjacency List (most common)
@@ -1145,7 +1125,7 @@ def dfs(graph, vertex, visited=None):
         
         <div class="section">
             <details>
-                <summary>► 24. Searching Algorithms</summary>
+                <summary>► 23. Searching Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Linear Search - O(n)</h4>
                 <pre>
@@ -1189,7 +1169,7 @@ def binary_search_recursive(arr, target, left, right):
         
         <div class="section">
             <details>
-                <summary>► 25. Sorting Algorithms</summary>
+                <summary>► 24. Sorting Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Bubble Sort - O(n²)</h4>
                 <pre>
@@ -1260,7 +1240,7 @@ def quick_sort(arr):
         
         <div class="section">
             <details>
-                <summary>► 26. Other Common Algorithms</summary>
+                <summary>► 25. Other Common Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Two Pointers</h4>
                 <pre>
@@ -1296,7 +1276,7 @@ def max_sum_subarray(arr, k):
         
         <div class="section">
             <details>
-                <summary>► 27. Graph Algorithms</summary>
+                <summary>► 26. Graph Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">DFS (Depth-First Search)</h4>
                 <pre>
@@ -1363,7 +1343,7 @@ def dijkstra(graph, start):
         
         <div class="section">
             <details>
-                <summary>► 28. Dynamic Programming</summary>
+                <summary>► 27. Dynamic Programming</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Fibonacci - O(n)</h4>
                 <pre>
@@ -1426,7 +1406,7 @@ def knapsack(weights, values, capacity):
         
         <div class="section">
             <details>
-                <summary>► 29. Creational Patterns</summary>
+                <summary>► 28. Creational Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Singleton Pattern</h4>
                 <p>Ensures only one instance of a class is created.</p>
@@ -1517,7 +1497,7 @@ pizza = (PizzaBuilder()
         
         <div class="section">
             <details>
-                <summary>► 30. Structural Patterns</summary>
+                <summary>► 29. Structural Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Adapter Pattern</h4>
                 <p>Converts interface of class into expected interface.</p>
@@ -1601,7 +1581,7 @@ car.start_car()  # Hides complexity of Engine and Transmission
         
         <div class="section">
             <details>
-                <summary>► 31. Behavioral Patterns</summary>
+                <summary>► 30. Behavioral Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Observer Pattern</h4>
                 <p>Defines one-to-many dependency where objects notify changes.</p>
