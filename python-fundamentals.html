@@ -66,15 +66,16 @@
             margin: 0;
             height: 100%;
         }
-        /* When a card is expanded, give it a comfortable reading width
-           (2 columns) but never wider than the grid itself. */
+        /* Expanded card: shrink-wrap to its content's natural width
+           (the widest line of code), capped at the page width. */
         .cards .section:has(details[open]) {
-            grid-column: span 2;
+            grid-column: 1 / -1;
+            justify-self: start;
         }
-        @media (max-width: 800px) {
-            .cards .section:has(details[open]) {
-                grid-column: 1 / -1;
-            }
+        .cards .section:has(details[open]) > details,
+        .cards .section:has(details[open]) pre {
+            width: max-content;
+            max-width: 100%;
         }
         code {
             background: #f5f5f5;
