@@ -18,9 +18,8 @@ This repository serves as a personal knowledge base for:
 All content is provided in **HTML format** for easy readability and navigation:
 
 - **index.html** - Main hub with links to all sections
-- **python-fundamentals.html** - Comprehensive guide covering Python Basics, Data Structures, Algorithms, and Design Patterns
+- **python-fundamentals.html** - Comprehensive guide covering a Quick Reference cheatsheet plus Python Basics, Data Structures, Algorithms, and Design Patterns
 - **problem-solving.html** - Common coding problems with solutions and explanations
-- **cheatsheet.html** - Quick Python reference guide
 
 ## 🚀 Getting Started
 
@@ -38,7 +37,7 @@ cd leet
 ## 📖 How to Use This as a Knowledge Base
 
 - **For learning:** Start with Python Basics, progress through Data Structures and Algorithms
-- **For reference:** Use Cheatsheet for quick Python syntax lookups
+- **For reference:** Use the Quick Reference section at the top of `python-fundamentals.html` for quick Python syntax lookups
 - **For problem practice:** Study Problem Solving section and implement solutions
 - **For design:** Learn and apply design patterns in your projects
 
