@@ -187,6 +187,43 @@ s.count("l")        # 3 (occurrences)
         
         <div class="section">
             <details>
+                <summary>► Creating Lists</summary>
+                <pre>
+# Literals
+a = []                       # empty (preferred over list())
+b = [1, 2, 3, 4]             # homogeneous
+c = [1, "a", True]           # mixed types are allowed
+
+# From an iterable
+d = list("abc")              # ['a', 'b', 'c']
+f = list([1, 2, 3])          # shallow copy of a list
+list(range(5))               # [0, 1, 2, 3, 4]
+list(range(1, 11, 2))        # [1, 3, 5, 7, 9]
+
+# Fill / preallocate
+[0] * 5                      # [0, 0, 0, 0, 0]  (only safe for immutable values)
+[None] * n                   # placeholder slots
+
+# Comprehensions
+[x * x for x in range(5)]            # transform
+[x for x in nums if x % 2 == 0]      # filter
+
+# 2D matrix - ALWAYS use a comprehension for the outer dim
+[[0] * 5 for _ in range(5)]          # ✅ independent rows
+[[0] * 5] * 5                        # ⚠ all rows are the SAME list!
+
+# Other idioms
+list(zip([1, 2], ['a', 'b']))        # [(1,'a'), (2,'b')]
+"a,b,c".split(",")                   # ['a', 'b', 'c']
+sorted([3, 1, 2])                    # new sorted list
+[*b, *other]                         # merge via unpacking
+b.copy()  # or b[:]  or list(b)      # shallow copy
+                </pre>
+            </details>
+        </div>
+        
+        <div class="section">
+            <details>
                 <summary>► List Operations</summary>
                 <pre>
 lst = [1, 2, 3, 4, 5]
