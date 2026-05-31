@@ -299,6 +299,49 @@ s2 = s.copy()                # set  - shallow
         
         <div class="section">
             <details>
+                <summary>► `a += b` vs `a = a + b` (lists)</summary>
+                <pre>
+# NOT identical for lists!
+# a + b    -> NEW list, then rebinds a
+# a += b   -> mutates a IN PLACE (like a.extend(b)), then rebinds a to itself
+
+a = [1, 2, 3]
+c = a                # c is another name for the same list
+
+a = a + [4, 5]       # a -> new list; c untouched
+# a == [1, 2, 3, 4, 5]
+# c == [1, 2, 3]
+
+a = [1, 2, 3]; c = a
+a += [4, 5]          # mutates the shared list
+# a == [1, 2, 3, 4, 5]
+# c == [1, 2, 3, 4, 5]   <- aliased!
+
+# RHS type
+[1, 2] + (3, 4)      # TypeError: can only concatenate list (not "tuple")
+lst = [1, 2]
+lst += (3, 4)        # ✅ += accepts ANY iterable (extend semantics)
+lst += "ab"          # ✅ -> [1, 2, 3, 4, 'a', 'b']
+lst += range(2)      # ✅
+
+# Cost
+# a = a + b   -> allocates len(a)+len(b), copies both        O(n + m) memory
+# a += b      -> extends in place, amortized                 O(m)
+
+# Tuple gotcha (succeeds AND raises)
+t = ([1, 2], 3)
+t[0] += [4]          # TypeError... but t[0] is now [1, 2, 4] anyway
+# The list mutation succeeds; the tuple-slot rebind fails.
+
+# Immutables (int, str, tuple): no __iadd__, so += just rebinds
+s = "hi"
+s += "!"             # equivalent to s = s + "!"   (new string)
+                </pre>
+            </details>
+        </div>
+        
+        <div class="section">
+            <details>
                 <summary>► List Operations</summary>
                 <pre>
 lst = [1, 2, 3, 4, 5]
