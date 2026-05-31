@@ -179,6 +179,13 @@
         details pre {
             margin-top: 12px;
         }
+        .warn {
+            color: #b45309;
+            background: #fef3c7;
+            padding: 0 4px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
@@ -267,7 +274,7 @@ list(itertools.chain(a, b))  # flat concat of multiple iterables
 # Fill / preallocate
 [0] * 5                      # [0, 0, 0, 0, 0]   safe: int is immutable
 [None] * n                   # placeholder slots
-# ⚠ `seq * n` repeats REFERENCES, not copies.
+# <span class="warn">⚠</span> `seq * n` repeats REFERENCES, not copies.
 #   Safe only when elements are immutable (int, str, tuple-of-immutables, ...).
 #   Mutable elements (list, dict, set) get aliased -> use a comprehension.
 
@@ -295,7 +302,7 @@ list("hello")                # ['h','e','l','l','o']   per-character, NOT split(
 
 # 2D matrix - ALWAYS use a comprehension for the outer dim
 [[0] * 5 for _ in range(5)]          # ✅ independent rows
-[[0] * 5] * 5                        # ⚠ all rows are the SAME list!
+[[0] * 5] * 5                        # <span class="warn">⚠</span> all rows are the SAME list!
 
 # Other idioms
 list(zip([1, 2], ['a', 'b']))        # [(1,'a'), (2,'b')]
@@ -538,7 +545,7 @@ def greet(name):
 # Default parameters - evaluated ONCE at def time (mutable default trap!)
 def add(a, b=5):
     return a + b
-def bad(x, items=[]):     # ⚠ same list is reused across calls
+def bad(x, items=[]):     # <span class="warn">⚠</span> same list is reused across calls
     items.append(x); return items
 def good(x, items=None):
     if items is None: items = []
@@ -633,7 +640,7 @@ from collections import defaultdict, Counter, deque
                 <pre>
 a = [[1, 2], [3, 4]]
 
-# ⚠ NOT a copy - just another name for the same list
+# <span class="warn">⚠</span> NOT a copy - just another name for the same list
 b = a
 b is a              # True
 b.append(99)        # a is also mutated
@@ -647,7 +654,7 @@ import copy
 b = copy.copy(a)            # explicit
 
 b.append([5, 6])    # ✅ only b changes (outer is independent)
-b[0].append(99)     # ⚠ a[0] also sees it (inner list is shared)
+b[0].append(99)     # <span class="warn">⚠</span> a[0] also sees it (inner list is shared)
 b is a              # False
 b[0] is a[0]        # True
 
@@ -755,7 +762,7 @@ nested["a"]["b"] += 1                # both levels auto-create
 # Custom factory
 def_zero_pair = defaultdict(lambda: [0, 0])
 
-# ⚠ Read-access also inserts the default!
+# <span class="warn">⚠</span> Read-access also inserts the default!
 dd = defaultdict(list)
 _ = dd["missing"]                    # dd now has {"missing": []}
 # Use plain dict + .get() if you must NOT mutate on read.
@@ -763,7 +770,7 @@ _ = dd["missing"]                    # dd now has {"missing": []}
 dd.default_factory = None
 dd["nope"]                           # KeyError again
 
-# ⚠ Decremented-to-0 vs never-touched: indistinguishable AFTER a read
+# <span class="warn">⚠</span> Decremented-to-0 vs never-touched: indistinguishable AFTER a read
 dd = defaultdict(int)
 dd["a"] += 1; dd["a"] -= 1   # touched, ended at 0
 _ = dd["b"]                  # just read -> auto-inserts as 0
@@ -856,7 +863,7 @@ from dataclasses import dataclass, field
 class Point:
     x: float
     y: float = 0.0
-    tags: list = field(default_factory=list)   # ⚠ never use mutable defaults directly
+    tags: list = field(default_factory=list)   # <span class="warn">⚠</span> never use mutable defaults directly
 # auto-generates __init__, __repr__, __eq__
 
 # @dataclass(frozen=True) -> immutable & hashable
