@@ -491,15 +491,40 @@ t.count(1); t.index(2)      # only two methods
 # Set - unordered, UNIQUE, mutable; elements must be hashable
 s = {1, 2, 3}
 empty_set = set()           # {} is an empty DICT, not a set
-s.add(4); s.discard(9)      # discard = no error if missing
-s.remove(2)                 # KeyError if missing
+s.add(4)                    # add one
+s.update([5, 6], {7, 8})    # add multiple (any iterables)
+s.discard(9)                # remove if present  (no error)
+s.remove(2)                 # remove if present  (KeyError if missing)
+s.pop()                     # remove & return an arbitrary element
 2 in s                      # O(1) membership
-<b class="hd">Set algebra</b>
-{1,2,3} | {3,4}             # union        {1,2,3,4}
-{1,2,3} & {2,3,4}           # intersection {2,3}
-{1,2,3} - {2}               # difference   {1,3}
-{1,2,3} ^ {2,3,4}           # symmetric    {1,4}
-{1,2}.issubset({1,2,3})     # True
+len(s); bool(s)             # size / truthy if non-empty
+s.copy(); s.clear()
+
+<b class="hd">Set algebra (operator and method forms)</b>
+a, b = {1, 2, 3}, {2, 3, 4}
+a | b      a.union(b)               # {1, 2, 3, 4}
+a & b      a.intersection(b)        # {2, 3}
+a - b      a.difference(b)          # {1}          - in a, not in b
+a ^ b      a.symmetric_difference(b)# {1, 4}       - in exactly one
+# All accept multiple iterables in method form:
+a.union(b, c, [10, 11])
+# In-place versions mutate `a` (return None):
+a |= b     a.update(b)              # add elements of b
+a &= b     a.intersection_update(b)
+a -= b     a.difference_update(b)
+a ^= b     a.symmetric_difference_update(b)
+# <span class="warn">⚠</span> Operator forms require BOTH sides to be sets.
+# Method forms accept any iterable on the right:
+{1,2,3}.union([3,4])     # ✅
+{1,2,3} | [3,4]          # TypeError
+
+<b class="hd">Comparison: subset / superset / disjoint</b>
+a &lt;= b    a.issubset(b)            # every element of a is in b
+a &lt;  b                              # proper subset (a ⊆ b and a ≠ b)
+a &gt;= b    a.issuperset(b)
+a &gt;  b                              # proper superset
+a == b                              # same elements
+a.isdisjoint(b)                     # True if no common element  (faster than a & b)
 
 # frozenset - immutable, hashable variant
 fs = frozenset([1, 2, 3])
