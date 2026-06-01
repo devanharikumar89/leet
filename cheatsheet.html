@@ -226,6 +226,13 @@ s.rfind("o")        # 7      last (rightmost) match;   rindex() raises
 "wor" in s          # True   use this for boolean checks (most Pythonic)
 s.count("l")        # 3 (occurrences)
 
+<b class="hd">Char &harr; code point</b>
+ord('a')            # 97        char -> int code point   (1-char string only)
+chr(97)             # 'a'       int -> char              (inverse of ord)
+ord(c) - ord('a')   # 0..25     map lowercase letter to array index
+ord(c) - ord('0')   # 0..9      digit char to int (faster than int(c) in hot loops)
+mask |= 1 << (ord(ch) - ord('a'))   # bitmask over the lowercase alphabet
+
 <b class="hd">Formatting</b>
 name, age = "Bob", 30
 
