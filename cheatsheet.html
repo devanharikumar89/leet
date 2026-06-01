@@ -989,35 +989,64 @@ class Stack:
         
         <div class="section">
             <details>
-                <summary>► 19. Queue</summary>
-                <p><strong>Time Complexity:</strong> Enqueue O(1), Dequeue O(1), Peek O(1)</p>
-                <p><strong>Use case:</strong> BFS, Task scheduling</p>
+                <summary>► 19. Queue & Deque</summary>
+                <p><strong>Time Complexity:</strong> append / pop / appendleft / popleft are all O(1). Indexing the middle is O(n). Use a <code>list</code> only as a stack (popping <code>list[0]</code> is O(n)) — use <code>deque</code> for any FIFO or double-ended workload.</p>
+                <p><strong>Use cases:</strong> BFS frontier, sliding-window patterns (incl. monotonic deque), bounded history / ring buffer (via <code>maxlen</code>), task queues.</p>
                 <pre>
 from collections import deque
 
-<b class="hd">Using deque</b>
-queue = deque()
-queue.append(1)      # Enqueue: O(1)
-queue.append(2)
-queue.append(3)
-print(queue.popleft())  # Dequeue: 1 (FIFO - First In First Out)
+<b class="hd">Both ends are O(1)</b>
+dq = deque([1, 2, 3])
+dq.append(4)            # right push  -> [1, 2, 3, 4]
+dq.appendleft(0)        # left push   -> [0, 1, 2, 3, 4]
+dq.pop()                # right pop   -> 4
+dq.popleft()            # left pop    -> 0
+dq[0]; dq[-1]           # peek front / back (O(1))
+len(dq); bool(dq)       # size / truthy if non-empty
 
-<b class="hd">Queue implementation</b>
-class Queue:
-    def __init__(self):
-        self.items = deque()
-    
-    def enqueue(self, item):
-        self.items.append(item)
-    
-    def dequeue(self):
-        return self.items.popleft() if not self.is_empty() else None
-    
-    def peek(self):
-        return self.items[0] if not self.is_empty() else None
-    
-    def is_empty(self):
-        return len(self.items) == 0
+<b class="hd">FIFO queue (BFS-style)</b>
+q = deque([start])
+while q:
+    node = q.popleft()        # FIFO: process oldest first
+    for nb in graph[node]:
+        q.append(nb)
+
+<b class="hd">LIFO stack (also works, but list is fine too)</b>
+st = deque()
+st.append(x); st.pop()        # right end as the top
+
+<b class="hd">Other useful ops</b>
+dq.extend([5, 6]);  dq.extendleft([0, -1])   # ⚠ extendleft REVERSES the input
+dq.rotate(1)            # rotate right by 1   (negative -> left)
+dq.reverse()            # in place
+dq.clear()
+list(dq)                # snapshot to a list
+
+<b class="hd">Bounded deque (ring buffer / sliding history)</b>
+recent = deque(maxlen=3)
+for x in [1, 2, 3, 4, 5]:
+    recent.append(x)            # auto-drops the oldest when full
+# recent == deque([3, 4, 5], maxlen=3)
+
+<b class="hd">Monotonic deque - sliding window maximum (LC239)</b>
+def sliding_max(nums, k):
+    dq, out = deque(), []           # store indices, values decreasing
+    for i, x in enumerate(nums):
+        while dq and dq[0] &lt;= i - k:        # drop out-of-window
+            dq.popleft()
+        while dq and nums[dq[-1]] &lt; x:      # maintain decreasing values
+            dq.pop()
+        dq.append(i)
+        if i &gt;= k - 1: out.append(nums[dq[0]])
+    return out
+
+<b class="hd">Thread-safe / blocking queues (different module)</b>
+import queue
+q = queue.Queue()          # FIFO, thread-safe (uses locks)
+q.put(x); q.get()          # blocking by default
+queue.LifoQueue()          # stack
+queue.PriorityQueue()      # min-heap (use heapq for single-threaded)
+# Use collections.deque for single-threaded code (faster, no locking).
                 </pre>
             </details>
         </div>
