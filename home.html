@@ -34,8 +34,8 @@
             font-size: 16px;
         }
         .sections {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            display: flex;
+            flex-direction: column;
             gap: 20px;
             margin-bottom: 30px;
         }
@@ -85,14 +85,14 @@
                 <p>Basics → Data Structures → Algorithms → Design Patterns + Quick Reference</p>
             </a>
             
-            <a href="problems.html" class="section-card">
-                <h2>💡 Problem Solving</h2>
-                <p>LeetCode-style problems and real-world coding challenges</p>
-            </a>
-            
             <a href="patterns.html" class="section-card">
                 <h2>🧩 LeetCode Patterns</h2>
                 <p>Reusable templates for the most common interview problem patterns</p>
+            </a>
+            
+            <a href="problems.html" class="section-card">
+                <h2>💡 Problem Solving</h2>
+                <p>LeetCode-style problems and real-world coding challenges</p>
             </a>
         </div>
         
