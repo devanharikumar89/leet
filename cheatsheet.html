@@ -714,6 +714,32 @@ deque((x for x in iterable), maxlen=100)
 #   - list/set/dict comp -> O(n) memory, materialized
 #   - generator          -> O(1) memory, single-pass, lazy
 #     Prefer when feeding sum / any / all / max / min / ''.join.
+
+<b class="hd">Iteration helpers (zip / enumerate / reversed)</b>
+for name, score in zip(names, scores):           # parallel iteration; stops at shortest
+    ...
+list(zip([1,2,3], [10,20]))                      # [(1,10), (2,20)]   <span class="warn">⚠</span> silently truncates
+zip([1,2,3], [10,20], strict=True)               # 3.10+: raise if lengths differ
+from itertools import zip_longest
+list(zip_longest([1,2,3], [10,20], fillvalue=0)) # [(1,10), (2,20), (3,0)]
+
+# Unzip - same operator
+nums, letters = zip(*[(1,'a'), (2,'b'), (3,'c')])      # (1,2,3), ('a','b','c')
+
+# Useful idioms
+dict(zip(keys, values))                          # build a dict from two lists
+list(map(list, zip(*matrix)))                    # transpose a rectangular matrix
+for prev, cur in zip(arr, arr[1:]): ...          # adjacent pairs
+from itertools import pairwise
+list(pairwise([1,2,3,4]))                        # [(1,2),(2,3),(3,4)]   (3.10+)
+
+# enumerate / reversed
+for i, x in enumerate(items, start=1): ...       # index + value
+for x in reversed(items): ...                    # iterate back to front (no copy)
+
+# <span class="warn">⚠</span> zip / map / filter return single-pass iterators
+z = zip(a, b)
+list(z); list(z)        # second list is empty
                 </pre>
             </details>
         </div>
