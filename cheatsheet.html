@@ -802,18 +802,46 @@ dict(dd)
 <b class="hd">Counter: defaultdict(int) on steroids, purpose-built for tallies</b>
 from collections import Counter
 c = Counter("mississippi")           # Counter({'i':4, 's':4, 'p':2, 'm':1})
-c = Counter(words)
-c.most_common(3)                     # top-3 (value, count) pairs
+c = Counter(words)                   # tally any iterable
 c["x"]                               # 0 for missing - does NOT insert
-c.update(more_words)                 # add counts
+c.update(more_words)                 # add counts (accepts iterable OR mapping)
 c.subtract(other)                    # may go negative
 c["a"] -= 2                          # zero/negative persist in the dict
 c = +c                               # unary plus drops non-positive entries
-c + Counter(other);  c & Counter(other)   # multiset add / intersection
+
+<b class="hd">Iteration / inspection</b>
+c.items()                            # dict_items: [(key, count), ...]
+c.keys(); c.values()                 # standard dict views
+list(c.elements())                   # repeat each key 'count' times: ['i','i','i','i','s','s',...]
+sum(c.values())                      # total count
+
+<b class="hd">Top-K frequent elements</b>
+c.most_common(3)                     # [(key, count), ...] top 3
+c.most_common()[:-4:-1]              # bottom 3 (least common)
+# LeetCode 347 - "Top K frequent": [k for k, _ in Counter(nums).most_common(K)]
+
+<b class="hd">Anagrams &mdash; just compare counters</b>
+def is_anagram(a, b):
+    return Counter(a) == Counter(b)
+# Or normalize: sorted(a) == sorted(b)   (O(n log n))
+# Group anagrams (LC 49):
+from collections import defaultdict
+groups = defaultdict(list)
+for w in words:
+    groups[tuple(sorted(w))].append(w)   # tuple(sorted) is hashable
+# (frozenset(Counter(w).items()) also works as a key)
+
+<b class="hd">Multiset operators (Counter is a multiset)</b>
+a, b = Counter("aabbc"), Counter("abbcd")
+a + b      # add counts:                 {'a':3, 'b':4, 'c':2, 'd':1}
+a - b      # subtract, KEEP positive only:{'a':1}        (negatives dropped)
+a & b      # intersection (min counts):  {'a':1, 'b':2, 'c':1}
+a | b      # union (max counts):         {'a':2, 'b':3, 'c':1, 'd':1}
+a == b     # equality
 
 <b class="hd">Quick chooser</b>
 #   - Need a default and "missing read is fine"   -> defaultdict
-#   - Need tallies / top-N                        -> Counter
+#   - Need tallies / top-N / multiset math        -> Counter
 #   - Need strict missing-key semantics           -> dict + .get / [] / try-except
                 </pre>
             </details>
