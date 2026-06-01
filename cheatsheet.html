@@ -1110,32 +1110,65 @@ queue.PriorityQueue()      # min-heap (use heapq for single-threaded)
         
         <div class="section">
             <details>
-                <summary>► 21. Heap (Priority Queue)</summary>
-                <p><strong>Time Complexity:</strong> Push O(log n), Pop O(log n), Peek O(1)</p>
-                <p><strong>Use case:</strong> Dijkstra's algorithm, K-largest elements</p>
+                <summary>► 21. Heap (heapq)</summary>
+                <p><strong>Time Complexity:</strong> push / pop O(log n), peek O(1), heapify O(n), nlargest/nsmallest O(n log k).</p>
+                <p><strong>Module:</strong> <code>heapq</code> &mdash; operates on a <em>plain list</em> kept as a binary min-heap. There is no Heap class; you pass the list to module functions.</p>
                 <pre>
 import heapq
 
-# Min Heap (by default)
-heap = []
-heapq.heappush(heap, 5)     # O(log n)
-heapq.heappush(heap, 1)
-heapq.heappush(heap, 3)
-print(heapq.heappop(heap))  # 1 (smallest)
+<b class="hd">Core ops (min-heap)</b>
+h = []
+heapq.heappush(h, 5)            # O(log n)
+heapq.heappush(h, 1)
+heapq.heappush(h, 3)
+h[0]                            # peek smallest          O(1)
+heapq.heappop(h)                # 1  (extract smallest)  O(log n)
+heapq.heapify(arr)              # in-place, O(n)         (cheaper than n heappushes)
 
-<b class="hd">Convert list to heap</b>
-arr = [5, 3, 1, 4, 2]
-heapq.heapify(arr)  # O(n)
+<b class="hd">Combined ops (one heap reshuffle, not two)</b>
+heapq.heappushpop(h, x)         # push x, then pop smallest      (returns the smaller)
+heapq.heapreplace(h, x)         # pop smallest, then push x      (h must be non-empty)
+# Use these in the "top-K" loop instead of separate push + pop.
 
-# Max Heap (using negative values)
-max_heap = []
-heapq.heappush(max_heap, -5)
-heapq.heappush(max_heap, -1)
-print(-heapq.heappop(max_heap))  # 5 (largest)
+<b class="hd">Bulk picks</b>
+heapq.nlargest(k, arr)          # top k                          O(n log k)
+heapq.nsmallest(k, arr)         # bottom k
+heapq.nlargest(k, items, key=lambda x: x.score)   # supports key=
 
-<b class="hd">Get K largest elements</b>
-k_largest = heapq.nlargest(2, arr)  # [5, 4]
+<b class="hd">Max-heap: negate</b>
+h = []
+heapq.heappush(h, -x)
+-heapq.heappop(h)               # original max
+
+<b class="hd">Priority + payload tuples</b>
+heapq.heappush(pq, (priority, item))
+prio, item = heapq.heappop(pq)
+# Ties are broken by comparing item -> if item isn't orderable,
+# add a unique counter to avoid TypeError:
+from itertools import count
+tie = count()
+heapq.heappush(pq, (priority, next(tie), item))
+
+<b class="hd">Top-K idiom (size-k min-heap for k largest)</b>
+h = []
+for x in stream:
+    if len(h) &lt; k:
+        heapq.heappush(h, x)
+    elif x &gt; h[0]:
+        heapq.heapreplace(h, x)     # one reshuffle, not two
+# h now holds the k largest (unordered); sort() if you need order.
+
+<b class="hd">Merge sorted iterables (lazy, like heap-of-iterators)</b>
+heapq.merge(it1, it2, ...)      # returns a generator, not a list
+
+<b class="hd">No `update_key` / `decrease_key` &mdash; workarounds</b>
+# heapq doesn't support changing an item's priority. Two common workarounds:
+#   1. Push the new priority and ignore stale pops:
+#         while pq and pq[0][0] != current_priority[pq[0][1]]:
+#             heapq.heappop(pq)
+#   2. Use a separate "visited" / "best-so-far" dict to skip duplicates on pop.
                 </pre>
+                <p style="font-size:13px;margin-top:6px;">→ See <a href="patterns.html#p-heap-top-k">Patterns: Heap / Top-K</a> for the size-k top-K and Dijkstra templates.</p>
             </details>
         </div>
         
