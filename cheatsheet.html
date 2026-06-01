@@ -961,15 +961,86 @@ secrets.randbelow(n)               # int in [0, n)
             </details>
         </div>
         
+        <div class="section">
+            <details>
+                <summary>► 10. Numbers, Booleans & Bitwise</summary>
+                <pre>
+<b class="hd">Numbers</b>
+1 / 2                       # 0.5      true division (always float)
+7 // 2                      # 3        floor division (int // int -> int)
+-7 // 2                     # -4       <span class="warn">⚠</span> rounds toward -∞, not toward 0
+-7 % 3                      # 2        % follows floor semantics in Python
+divmod(7, 2)                # (3, 1)   quotient & remainder in one call
+2 ** 10                     # 1024     int power, exact
+pow(2, 10, 1000)            # 24       (2**10) % 1000, fast (modular)
+abs(-5); min(a, b); max(a, b)
+round(2.5)                  # 2        <span class="warn">⚠</span> banker's rounding: half-to-EVEN
+round(3.5)                  # 4
+round(3.14159, 2)           # 3.14
+import math
+math.floor(-1.5); math.ceil(1.1); math.sqrt(2); math.log(8, 2)
+math.gcd(12, 18); math.lcm(4, 6)
+# int is arbitrary precision in Python - no overflow:
+1 &lt;&lt; 200                    # 1606938044258990275541962092341162602522202993782792835301376
 
-        
+<b class="hd">Infinity & NaN</b>
+INF = float('inf')          # or math.inf
+NEG = float('-inf')         # or -math.inf
+NAN = float('nan')          # or math.nan
+INF &gt; 10**100               # True       (greater than any finite int)
+INF - INF                   # nan
+math.isinf(x); math.isnan(x)
+# <span class="warn">⚠</span> NaN is NOT equal to itself:
+NAN == NAN                  # False      <- use math.isnan()
+# Common LC idiom: initialize DP with "unreachable"
+dp = [float('inf')] * n
+best = -float('inf')
 
+<b class="hd">Booleans</b>
+True + True                 # 2          bool is a subclass of int
+sum([True, False, True])    # 2          handy for counting truthy items
+isinstance(True, int)       # True
+# Falsy values (everything else is truthy):
+#   None, False, 0, 0.0, 0j, '', [], (), {}, set(), range(0), b''
+bool(0); bool("");  bool([])             # False
+bool("0"); bool([0]); bool({0: 0})       # True   (non-empty containers!)
+
+<b class="hd">and / or short-circuit and RETURN OPERANDS (not bool)</b>
+0 or "x"           # 'x'        first truthy operand
+"" or [] or None   # None       all falsy -> last operand
+1 and "y"          # 'y'        if first truthy, returns second
+0 and "y"          # 0          first falsy short-circuits
+# Common idioms
+name = user_input or "Anonymous"            # default when falsy
+last = lst and lst[-1]                      # avoid IndexError on empty
+# <span class="warn">⚠</span> Prefer `if x is None` over `if not x` when None vs 0/"" matter
+
+<b class="hd">Bitwise (on ints; bool too)</b>
+a & b           # AND         5 & 3 == 1   (0b101 & 0b011 = 0b001)
+a | b           # OR          5 | 3 == 7
+a ^ b           # XOR         5 ^ 3 == 6
+~a              # NOT         ~5 == -6     (== -(a + 1) due to two's complement)
+a &lt;&lt; n          # left shift  == a * 2**n
+a &gt;&gt; n          # right shift == a // 2**n   (arithmetic shift)
+# Set / clear / read / toggle bit i
+x | (1 &lt;&lt; i);  x &amp; ~(1 &lt;&lt; i);  (x &gt;&gt; i) &amp; 1;  x ^ (1 &lt;&lt; i)
+bin(13)         # '0b1101'
+int('1101', 2)  # 13
+(13).bit_count()        # 3   popcount (3.10+); else: bin(x).count('1')
+(13).bit_length()       # 4   bits needed to represent
+# <span class="warn">⚠</span> Operator precedence: & | ^ are LOWER than == and comparisons.
+#   if (x &amp; mask) == 0:   # ✅
+#   if x &amp; mask == 0:     # parses as  x &amp; (mask == 0)   <- bug
+                </pre>
+                <p style="font-size:13px;margin-top:6px;">→ See <a href="patterns.html#p-bit-manipulation">Patterns: Bit Manipulation</a> for tricks (clear lowest bit, isolate lowest bit, iterate subsets of a mask, etc.).</p>
+            </details>
+        </div>
         
 
         
         <div class="section">
             <details>
-                <summary>► 10. Classes & OOP</summary>
+                <summary>► 11. Classes & OOP</summary>
                 <pre>
 class Person:
     species = "Homo sapiens"          # class attribute (shared)
@@ -1036,7 +1107,7 @@ class Point:
         </div>
         <div class="section">
             <details>
-                <summary>► 11. Linked List</summary>
+                <summary>► 12. Linked List</summary>
                 <p><strong>Time Complexity:</strong> Access O(n), Insert/Delete O(1) (if at known position), Search O(n)</p>
                 <pre>
 class Node:
@@ -1076,7 +1147,7 @@ ll.traverse()  # 1 -> 2 -> 3 -> None
         
         <div class="section">
             <details>
-                <summary>► 12. Stack</summary>
+                <summary>► 13. Stack</summary>
                 <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
                 <pre>
@@ -1109,7 +1180,7 @@ class Stack:
         
         <div class="section">
             <details>
-                <summary>► 13. Queue & Deque</summary>
+                <summary>► 14. Queue & Deque</summary>
                 <p><strong>Time Complexity:</strong> append / pop / appendleft / popleft are all O(1). Indexing the middle is O(n). Use a <code>list</code> only as a stack (popping <code>list[0]</code> is O(n)) — use <code>deque</code> for any FIFO or double-ended workload.</p>
                 <p><strong>Use cases:</strong> BFS frontier, sliding-window patterns (incl. monotonic deque), bounded history / ring buffer (via <code>maxlen</code>), task queues.</p>
                 <pre>
@@ -1170,7 +1241,7 @@ queue.PriorityQueue()      # min-heap (use heapq for single-threaded)
         
         <div class="section">
             <details>
-                <summary>► 14. Heap (heapq)</summary>
+                <summary>► 15. Heap (heapq)</summary>
                 <p><strong>Time Complexity:</strong> push / pop O(log n), peek O(1), heapify O(n), nlargest/nsmallest O(n log k).</p>
                 <p><strong>Module:</strong> <code>heapq</code> &mdash; operates on a <em>plain list</em> kept as a binary min-heap. There is no Heap class; you pass the list to module functions.</p>
                 <pre>
@@ -1238,7 +1309,7 @@ heapq.merge(it1, it2, ...)      # returns a generator, not a list
         
         <div class="section">
             <details>
-                <summary>► 15. Tree (Binary Tree & BST)</summary>
+                <summary>► 16. Tree (Binary Tree & BST)</summary>
                 <p><strong>Time Complexity:</strong> Search/Insert/Delete O(log n) (balanced), O(n) (worst)</p>
                 <pre>
 class TreeNode:
@@ -1294,7 +1365,7 @@ def postorder(node):     # Left, Right, Root
         
         <div class="section">
             <details>
-                <summary>► 16. Graph</summary>
+                <summary>► 17. Graph</summary>
                 <p><strong>Time Complexity:</strong> Depends on implementation (adjacency list vs matrix)</p>
                 <pre>
 # Adjacency List (most common)
@@ -1336,7 +1407,7 @@ def dfs(graph, vertex, visited=None):
         
         <div class="section">
             <details>
-                <summary>► 17. Searching Algorithms</summary>
+                <summary>► 18. Searching Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Linear Search - O(n)</h4>
                 <pre>
@@ -1380,7 +1451,7 @@ def binary_search_recursive(arr, target, left, right):
         
         <div class="section">
             <details>
-                <summary>► 18. Sorting Algorithms</summary>
+                <summary>► 19. Sorting Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Bubble Sort - O(n²)</h4>
                 <pre>
@@ -1451,7 +1522,7 @@ def quick_sort(arr):
         
         <div class="section">
             <details>
-                <summary>► 19. Other Common Algorithms</summary>
+                <summary>► 20. Other Common Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Two Pointers</h4>
                 <pre>
@@ -1487,7 +1558,7 @@ def max_sum_subarray(arr, k):
         
         <div class="section">
             <details>
-                <summary>► 20. Graph Algorithms</summary>
+                <summary>► 21. Graph Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">DFS (Depth-First Search)</h4>
                 <pre>
@@ -1554,7 +1625,7 @@ def dijkstra(graph, start):
         
         <div class="section">
             <details>
-                <summary>► 21. Dynamic Programming</summary>
+                <summary>► 22. Dynamic Programming</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Fibonacci - O(n)</h4>
                 <pre>
@@ -1617,7 +1688,7 @@ def knapsack(weights, values, capacity):
         
         <div class="section">
             <details>
-                <summary>► 22. Creational Patterns</summary>
+                <summary>► 23. Creational Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Singleton Pattern</h4>
                 <p>Ensures only one instance of a class is created.</p>
@@ -1708,7 +1779,7 @@ pizza = (PizzaBuilder()
         
         <div class="section">
             <details>
-                <summary>► 23. Structural Patterns</summary>
+                <summary>► 24. Structural Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Adapter Pattern</h4>
                 <p>Converts interface of class into expected interface.</p>
@@ -1792,7 +1863,7 @@ car.start_car()  # Hides complexity of Engine and Transmission
         
         <div class="section">
             <details>
-                <summary>► 24. Behavioral Patterns</summary>
+                <summary>► 25. Behavioral Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Observer Pattern</h4>
                 <p>Defines one-to-many dependency where objects notify changes.</p>
