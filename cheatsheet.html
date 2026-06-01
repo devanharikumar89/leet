@@ -220,7 +220,10 @@ s.replace("o", "0") # "hell0 w0rld"
 s.strip()           # remove leading/trailing whitespace
 s.startswith("he")  # True
 s.endswith("ld")    # True
-s.find("wor")       # 6 (index, -1 if not found)
+s.find("wor")       # 6      first index; -1 if not found
+s.index("wor")      # 6      same as find but raises ValueError if missing
+s.rfind("o")        # 7      last (rightmost) match;   rindex() raises
+"wor" in s          # True   use this for boolean checks (most Pythonic)
 s.count("l")        # 3 (occurrences)
 
 <b class="hd">Formatting</b>
