@@ -661,7 +661,57 @@ from collections import defaultdict, Counter, deque
         
         <div class="section">
             <details>
-                <summary>► 13. Copying Lists (Shallow vs Deep)</summary>
+                <summary>► 13. Random</summary>
+                <pre>
+import random
+
+<b class="hd">Numbers</b>
+random.random()          # float in [0.0, 1.0)
+random.uniform(1, 5)     # float in [a, b]
+random.randint(0, 9)     # int in [a, b]   - BOTH endpoints inclusive
+random.randrange(10)     # int in [0, 10)  - stop EXCLUSIVE (like range())
+random.randrange(2, 11, 2)   # even int from {2,4,6,8,10}
+
+<b class="hd">Picking from a sequence</b>
+random.choice([1, 2, 3])           # one element
+random.choices(pool, k=5)          # k elements WITH replacement
+random.choices(pool, weights=[3, 1, 1], k=5)   # weighted, with replacement
+random.sample(pool, k=3)           # k DISTINCT elements (without replacement)
+random.sample(range(10**9), 5)     # works lazily on a range (no list built)
+
+<b class="hd">Shuffling</b>
+random.shuffle(lst)                # in-place; returns None
+shuffled = random.sample(lst, len(lst))   # not in place, leaves lst alone
+
+<b class="hd">Reproducibility</b>
+random.seed(42)                    # fixed seed -> deterministic sequence
+rng = random.Random(42)            # independent generator (use rng.randint, ...)
+# Useful in tests; the global random is shared/threadlocal otherwise.
+
+<b class="hd"><span class="warn">⚠</span> choices vs sample</b>
+# random.choices  -> WITH replacement     (same element can appear multiple times)
+# random.sample   -> WITHOUT replacement  (all distinct; ValueError if k > len)
+
+<b class="hd">Reservoir sampling (one pass over an unknown-length stream)</b>
+# Pick one random item with equal probability without knowing N up front:
+pick = None
+for i, x in enumerate(stream):       # i is 0-indexed
+    if random.randrange(i + 1) == 0: # 1/(i+1) chance to replace
+        pick = x
+
+<b class="hd">Cryptography? Use `secrets`, not `random`</b>
+import secrets
+secrets.token_hex(16)              # 32-char hex string
+secrets.choice(seq)                # like random.choice but cryptographically secure
+secrets.randbelow(n)               # int in [0, n)
+# `random` is fast and reproducible but predictable - never use it for tokens, passwords, or keys.
+                </pre>
+            </details>
+        </div>
+        
+        <div class="section">
+            <details>
+                <summary>► 14. Copying Lists (Shallow vs Deep)</summary>
                 <pre>
 a = [[1, 2], [3, 4]]
 
@@ -708,7 +758,7 @@ s2 = s.copy()                # set  - shallow
         
         <div class="section">
             <details>
-                <summary>► 14. `a += b` vs `a = a + b` (lists)</summary>
+                <summary>► 15. `a += b` vs `a = a + b` (lists)</summary>
                 <pre>
 # NOT identical for lists!
 # a + b    -> NEW list, then rebinds a
@@ -751,7 +801,7 @@ s += "!"             # equivalent to s = s + "!"   (new string)
         
         <div class="section">
             <details>
-                <summary>► 15. dict vs defaultdict (and Counter)</summary>
+                <summary>► 16. dict vs defaultdict (and Counter)</summary>
                 <pre>
 <b class="hd">Plain dict: missing keys raise KeyError</b>
 d = {}
@@ -859,7 +909,7 @@ a == b     # equality
         
         <div class="section">
             <details>
-                <summary>► 16. Classes & OOP</summary>
+                <summary>► 17. Classes & OOP</summary>
                 <pre>
 class Person:
     species = "Homo sapiens"          # class attribute (shared)
@@ -926,7 +976,7 @@ class Point:
         </div>
         <div class="section">
             <details>
-                <summary>► 17. Linked List</summary>
+                <summary>► 18. Linked List</summary>
                 <p><strong>Time Complexity:</strong> Access O(n), Insert/Delete O(1) (if at known position), Search O(n)</p>
                 <pre>
 class Node:
@@ -966,7 +1016,7 @@ ll.traverse()  # 1 -> 2 -> 3 -> None
         
         <div class="section">
             <details>
-                <summary>► 18. Stack</summary>
+                <summary>► 19. Stack</summary>
                 <p><strong>Time Complexity:</strong> Push O(1), Pop O(1), Peek O(1)</p>
                 <p><strong>Use case:</strong> Undo/Redo, DFS, Expression evaluation</p>
                 <pre>
@@ -999,7 +1049,7 @@ class Stack:
         
         <div class="section">
             <details>
-                <summary>► 19. Queue & Deque</summary>
+                <summary>► 20. Queue & Deque</summary>
                 <p><strong>Time Complexity:</strong> append / pop / appendleft / popleft are all O(1). Indexing the middle is O(n). Use a <code>list</code> only as a stack (popping <code>list[0]</code> is O(n)) — use <code>deque</code> for any FIFO or double-ended workload.</p>
                 <p><strong>Use cases:</strong> BFS frontier, sliding-window patterns (incl. monotonic deque), bounded history / ring buffer (via <code>maxlen</code>), task queues.</p>
                 <pre>
@@ -1060,7 +1110,7 @@ queue.PriorityQueue()      # min-heap (use heapq for single-threaded)
         
         <div class="section">
             <details>
-                <summary>► 20. Heap (Priority Queue)</summary>
+                <summary>► 21. Heap (Priority Queue)</summary>
                 <p><strong>Time Complexity:</strong> Push O(log n), Pop O(log n), Peek O(1)</p>
                 <p><strong>Use case:</strong> Dijkstra's algorithm, K-largest elements</p>
                 <pre>
@@ -1091,7 +1141,7 @@ k_largest = heapq.nlargest(2, arr)  # [5, 4]
         
         <div class="section">
             <details>
-                <summary>► 21. Tree (Binary Tree & BST)</summary>
+                <summary>► 22. Tree (Binary Tree & BST)</summary>
                 <p><strong>Time Complexity:</strong> Search/Insert/Delete O(log n) (balanced), O(n) (worst)</p>
                 <pre>
 class TreeNode:
@@ -1147,7 +1197,7 @@ def postorder(node):     # Left, Right, Root
         
         <div class="section">
             <details>
-                <summary>► 22. Graph</summary>
+                <summary>► 23. Graph</summary>
                 <p><strong>Time Complexity:</strong> Depends on implementation (adjacency list vs matrix)</p>
                 <pre>
 # Adjacency List (most common)
@@ -1189,7 +1239,7 @@ def dfs(graph, vertex, visited=None):
         
         <div class="section">
             <details>
-                <summary>► 23. Searching Algorithms</summary>
+                <summary>► 24. Searching Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Linear Search - O(n)</h4>
                 <pre>
@@ -1233,7 +1283,7 @@ def binary_search_recursive(arr, target, left, right):
         
         <div class="section">
             <details>
-                <summary>► 24. Sorting Algorithms</summary>
+                <summary>► 25. Sorting Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Bubble Sort - O(n²)</h4>
                 <pre>
@@ -1304,7 +1354,7 @@ def quick_sort(arr):
         
         <div class="section">
             <details>
-                <summary>► 25. Other Common Algorithms</summary>
+                <summary>► 26. Other Common Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Two Pointers</h4>
                 <pre>
@@ -1340,7 +1390,7 @@ def max_sum_subarray(arr, k):
         
         <div class="section">
             <details>
-                <summary>► 26. Graph Algorithms</summary>
+                <summary>► 27. Graph Algorithms</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">DFS (Depth-First Search)</h4>
                 <pre>
@@ -1407,7 +1457,7 @@ def dijkstra(graph, start):
         
         <div class="section">
             <details>
-                <summary>► 27. Dynamic Programming</summary>
+                <summary>► 28. Dynamic Programming</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Fibonacci - O(n)</h4>
                 <pre>
@@ -1470,7 +1520,7 @@ def knapsack(weights, values, capacity):
         
         <div class="section">
             <details>
-                <summary>► 28. Creational Patterns</summary>
+                <summary>► 29. Creational Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Singleton Pattern</h4>
                 <p>Ensures only one instance of a class is created.</p>
@@ -1561,7 +1611,7 @@ pizza = (PizzaBuilder()
         
         <div class="section">
             <details>
-                <summary>► 29. Structural Patterns</summary>
+                <summary>► 30. Structural Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Adapter Pattern</h4>
                 <p>Converts interface of class into expected interface.</p>
@@ -1645,7 +1695,7 @@ car.start_car()  # Hides complexity of Engine and Transmission
         
         <div class="section">
             <details>
-                <summary>► 30. Behavioral Patterns</summary>
+                <summary>► 31. Behavioral Patterns</summary>
             
                 <h4 style="color: #555; margin: 20px 0 10px 0; font-size: 18px;">Observer Pattern</h4>
                 <p>Defines one-to-many dependency where objects notify changes.</p>
