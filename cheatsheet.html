@@ -1005,18 +1005,23 @@ dq[0]; dq[-1]           # peek front / back (O(1))
 len(dq); bool(dq)       # size / truthy if non-empty
 
 <b class="hd">FIFO queue (BFS-style)</b>
-q = deque([start])
+q = deque([start])            # <span class="warn">⚠</span> brackets! deque(start) iterates start
 while q:
     node = q.popleft()        # FIFO: process oldest first
     for nb in graph[node]:
         q.append(nb)
+# deque(iterable) consumes elements:
+#   deque([(0,0)])  -> one tuple element     (what BFS wants)
+#   deque((0,0))    -> TWO ints (0, 0)       (classic BFS bug)
+#   deque("abc")    -> ['a', 'b', 'c']       (not one string)
+# Same caveat applies to set(), list(), tuple(), Counter(), ...
 
 <b class="hd">LIFO stack (also works, but list is fine too)</b>
 st = deque()
 st.append(x); st.pop()        # right end as the top
 
 <b class="hd">Other useful ops</b>
-dq.extend([5, 6]);  dq.extendleft([0, -1])   # ⚠ extendleft REVERSES the input
+dq.extend([5, 6]);  dq.extendleft([0, -1])   # <span class="warn">⚠</span> extendleft REVERSES the input
 dq.rotate(1)            # rotate right by 1   (negative -> left)
 dq.reverse()            # in place
 dq.clear()
