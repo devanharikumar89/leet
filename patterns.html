@@ -164,7 +164,7 @@
         <h1>🧩 Patterns</h1>
         <p class="subtitle">Reusable templates for the most common interview problem patterns.</p>
         <div class="cards">
-        <div class="section">
+        <div class="section" id="p-two-pointers">
             <details>
                 <summary>► 1. Two Pointers</summary>
             <div class="when"><strong>Use when:</strong> a sorted array / linked list, pair-sum, palindrome check, removing duplicates, partitioning.</div>
@@ -199,7 +199,7 @@ def remove_duplicates(arr):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-sliding-window">
             <details>
                 <summary>► 2. Sliding Window</summary>
             <div class="when"><strong>Use when:</strong> longest/shortest/contains subarray or substring satisfying a condition.</div>
@@ -239,7 +239,7 @@ def max_sum_window(arr, k):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-fast-and-slow-pointers-floyds-tortoise-and-hare">
             <details>
                 <summary>► 3. Fast &amp; Slow Pointers (Floyd&apos;s Tortoise &amp; Hare)</summary>
             <div class="when"><strong>Use when:</strong> cycle detection, finding the middle of a linked list, &quot;happy number&quot;-style state machines.</div>
@@ -264,7 +264,7 @@ def detect_cycle_start(head):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-prefix-sum-difference-array">
             <details>
                 <summary>► 4. Prefix Sum / Difference Array</summary>
             <div class="when"><strong>Use when:</strong> repeated range-sum queries, subarray-sum-equals-k, range increments.</div>
@@ -288,7 +288,7 @@ def subarray_sum_equals_k(nums, k):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-binary-search">
             <details>
                 <summary>► 5. Binary Search</summary>
             <div class="when"><strong>Use when:</strong> sorted input, or any monotonic predicate <code>f(x) -&gt; bool</code> &mdash; &quot;smallest x that works&quot;.</div>
@@ -327,7 +327,7 @@ j = bisect.bisect_right(arr, target)  # rightmost insertion point
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-bfs-breadth-first-search">
             <details>
                 <summary>► 6. BFS (Breadth-First Search)</summary>
             <div class="when"><strong>Use when:</strong> shortest path in an unweighted graph/grid, level-order tree traversal, &quot;minimum steps&quot;.</div>
@@ -356,7 +356,7 @@ def bfs(grid, start):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-dfs-backtracking">
             <details>
                 <summary>► 7. DFS / Backtracking</summary>
             <div class="when"><strong>Use when:</strong> all paths/permutations/combinations/subsets, constraint satisfaction (Sudoku, N-queens), tree/graph traversal.</div>
@@ -394,7 +394,7 @@ def dfs(node, graph, seen):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-heap-top-k">
             <details>
                 <summary>► 8. Heap / Top-K</summary>
             <div class="when"><strong>Use when:</strong> top-K, K-th smallest/largest, merge K sorted lists, scheduling, Dijkstra.</div>
@@ -433,7 +433,7 @@ def dijkstra(graph, src):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-hash-map-set-counting-lookups-dedup">
             <details>
                 <summary>► 9. Hash Map / Set (counting, lookups, dedup)</summary>
             <div class="when"><strong>Use when:</strong> O(1) lookups by key, frequency counting, anagram grouping, "seen before".</div>
@@ -465,7 +465,7 @@ def group_anagrams(words):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-monotonic-stack-queue">
             <details>
                 <summary>► 10. Monotonic Stack / Queue</summary>
             <div class="when"><strong>Use when:</strong> &quot;next greater/smaller element&quot;, largest rectangle in histogram, sliding-window maximum.</div>
@@ -506,7 +506,7 @@ def sliding_max(nums, k):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-dynamic-programming">
             <details>
                 <summary>► 11. Dynamic Programming</summary>
             <div class="when"><strong>Use when:</strong> optimal substructure + overlapping subproblems &mdash; counting, optimization, decision over sequences/grids.</div>
@@ -554,7 +554,7 @@ def unique_paths(m, n):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-greedy">
             <details>
                 <summary>► 12. Greedy</summary>
             <div class="when"><strong>Use when:</strong> a local optimum provably leads to a global optimum &mdash; interval scheduling, jump game, Huffman.</div>
@@ -574,7 +574,7 @@ def max_non_overlapping(intervals):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-union-find-disjoint-set-union">
             <details>
                 <summary>► 13. Union-Find (Disjoint Set Union)</summary>
             <div class="when"><strong>Use when:</strong> connectivity queries, counting connected components, Kruskal&apos;s MST, cycle detection in an undirected graph.</div>
@@ -603,7 +603,7 @@ class DSU:
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-topological-sort-kahns-algorithm">
             <details>
                 <summary>► 14. Topological Sort (Kahn&apos;s Algorithm)</summary>
             <div class="when"><strong>Use when:</strong> course schedule, build order, any DAG ordering with dependencies.</div>
@@ -631,7 +631,7 @@ def topo_sort(n, edges):                   # edges: (u -&gt; v)
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-tree-traversals">
             <details>
                 <summary>► 15. Tree Traversals</summary>
             <div class="when"><strong>Use when:</strong> any binary-tree problem &mdash; recursion is usually cleanest.</div>
@@ -674,7 +674,7 @@ def level_order(root):
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-trie-prefix-tree">
             <details>
                 <summary>► 16. Trie (Prefix Tree)</summary>
             <div class="when"><strong>Use when:</strong> prefix queries, autocomplete, word-search-II style problems.</div>
@@ -706,7 +706,7 @@ class Trie:
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-bit-manipulation">
             <details>
                 <summary>► 17. Bit Manipulation</summary>
             <div class="when"><strong>Use when:</strong> subsets via bitmask, single-number XOR tricks, power-of-two checks, DP over subsets.</div>
@@ -732,7 +732,7 @@ while sub:
             </details>
             </details>
         </div>
-        <div class="section">
+        <div class="section" id="p-pattern-picker-quick-heuristics">
             <details>
                 <summary>► Pattern Picker (Quick Heuristics)</summary>
             <ul>

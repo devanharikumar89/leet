@@ -1033,17 +1033,8 @@ for x in [1, 2, 3, 4, 5]:
     recent.append(x)            # auto-drops the oldest when full
 # recent == deque([3, 4, 5], maxlen=3)
 
-<b class="hd">Monotonic deque - sliding window maximum (LC239)</b>
-def sliding_max(nums, k):
-    dq, out = deque(), []           # store indices, values decreasing
-    for i, x in enumerate(nums):
-        while dq and dq[0] &lt;= i - k:        # drop out-of-window
-            dq.popleft()
-        while dq and nums[dq[-1]] &lt; x:      # maintain decreasing values
-            dq.pop()
-        dq.append(i)
-        if i &gt;= k - 1: out.append(nums[dq[0]])
-    return out
+<b class="hd">Monotonic deque (sliding window max, next greater, ...)</b>
+# Algorithm template lives in Patterns -> Monotonic Stack / Queue.
 
 <b class="hd">Thread-safe / blocking queues (different module)</b>
 import queue
@@ -1053,6 +1044,7 @@ queue.LifoQueue()          # stack
 queue.PriorityQueue()      # min-heap (use heapq for single-threaded)
 # Use collections.deque for single-threaded code (faster, no locking).
                 </pre>
+                <p style="font-size:13px;margin-top:6px;">→ See <a href="patterns.html#p-monotonic-stack-queue">Patterns: Monotonic Stack / Queue</a> for the sliding-window-max template, and <a href="patterns.html#p-bfs-breadth-first-search">Patterns: BFS</a> for the full grid-BFS template.</p>
             </details>
         </div>
         
