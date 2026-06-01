@@ -1129,6 +1129,10 @@ heapq.heapify(arr)              # in-place, O(n)         (cheaper than n heappus
 heapq.heappushpop(h, x)         # push x, then pop smallest      (returns the smaller)
 heapq.heapreplace(h, x)         # pop smallest, then push x      (h must be non-empty)
 # Use these in the "top-K" loop instead of separate push + pop.
+# The difference matters when x &lt; current root:
+#   h = [3, 5, 7]
+#   heappushpop(h, 1)  -> returns 1, h unchanged          (x pushed then immediately popped)
+#   heapreplace (h, 1) -> returns 3, h becomes [1, 5, 7]  (x replaces the old min)
 
 <b class="hd">Bulk picks</b>
 heapq.nlargest(k, arr)          # top k                          O(n log k)
