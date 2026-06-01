@@ -17,9 +17,9 @@ This repository serves as a personal knowledge base for:
 
 All content is provided in **HTML format** for easy readability and navigation:
 
-- **index.html** - Main hub with links to all sections
-- **python-fundamentals.html** - Comprehensive guide covering a Quick Reference cheatsheet plus Python Basics, Data Structures, Algorithms, and Design Patterns
-- **problem-solving.html** - Common coding problems with solutions and explanations
+- **home.html** - Main hub with links to all sections
+- **cheatsheet.html** - Comprehensive Python cheatsheet (card grid covering language idioms, data structures, algorithms, and design patterns)
+- **problems.html** - Common coding problems with solutions and explanations
 - **patterns.html** - Reusable templates for the most common LeetCode problem patterns
 
 ## 🚀 Getting Started
@@ -31,14 +31,14 @@ cd leet
 ```
 
 2. **Open the knowledge base:**
-   - Open `index.html` in a web browser to access the interactive wiki
+   - Open `home.html` in a web browser to access the interactive wiki
    - Click through sections to explore topics
    - Each page has syntax-highlighted code examples and explanations
 
 ## 📖 How to Use This as a Knowledge Base
 
 - **For learning:** Start with Python Basics, progress through Data Structures and Algorithms
-- **For reference:** Use the Quick Reference section at the top of `python-fundamentals.html` for quick Python syntax lookups
+- **For reference:** Use the Quick Reference section at the top of `cheatsheet.html` for quick Python syntax lookups
 - **For problem practice:** Study Problem Solving section and implement solutions
 - **For design:** Learn and apply design patterns in your projects
 

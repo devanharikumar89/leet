@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Knowledge Base</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f8f8f8;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            padding: 40px;
+        }
+        h1 {
+            color: #222;
+            margin-bottom: 10px;
+            text-align: center;
+            font-size: 36px;
+            font-weight: 600;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 16px;
+        }
+        .sections {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .section-card {
+            background: white;
+            color: #333;
+            padding: 30px;
+            border-radius: 4px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            border: 1px solid #e0e0e0;
+            transition: transform 0.2s, box-shadow 0.2s;
+            text-decoration: none;
+            display: block;
+        }
+        .section-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.12);
+            border-color: #ccc;
+        }
+        .section-card h2 {
+            font-size: 24px;
+            margin-bottom: 10px;
+            color: #222;
+            font-weight: 600;
+        }
+        .section-card p {
+            font-size: 14px;
+            color: #666;
+        }
+        .footer {
+            text-align: center;
+            color: #777;
+            margin-top: 40px;
+            border-top: 1px solid #e0e0e0;
+            padding-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Python Knowledge Base</h1>
+        <p class="subtitle">Master Python Programming, Data Structures, Algorithms & Design Patterns</p>
+        
+        <div class="sections">
+            <a href="cheatsheet.html" class="section-card">
+                <h2>📚 Python Fundamentals</h2>
+                <p>Basics → Data Structures → Algorithms → Design Patterns + Quick Reference</p>
+            </a>
+            
+            <a href="problems.html" class="section-card">
+                <h2>💡 Problem Solving</h2>
+                <p>LeetCode-style problems and real-world coding challenges</p>
+            </a>
+            
+            <a href="patterns.html" class="section-card">
+                <h2>🧩 LeetCode Patterns</h2>
+                <p>Reusable templates for the most common interview problem patterns</p>
+            </a>
+        </div>
+        
+        <div class="footer">
+            <p><strong>Python Knowledge Base</strong> | A personal learning repository</p>
+            <p style="margin-top: 10px; font-size: 12px;">📖 Created for comprehensive Python mastery</p>
+        </div>
+    </div>
+</body>
+</html>
